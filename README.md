@@ -24,7 +24,7 @@ InsightAgent monitors Polymarket prediction markets in real-time, analyzes news 
 
 ## Live Demo
 
-http://13.214.169.76:5000
+https://insightagent.duckdns.org
 
 ## Built for
 
