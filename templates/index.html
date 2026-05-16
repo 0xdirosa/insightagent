@@ -5,224 +5,496 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="refresh" content="300">
 <title>InsightAgent — Polymarket Intelligence</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{--green:#00ff88;--red:#ff4444;--blue:#4488ff;--gold:#ffaa00;--bg:#080810;--card:#0d0d1a;--border:#1a1a2e;--text:#e0e0e0;--muted:#666;}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
+:root{
+  --green:#00ff88;--green2:#00cc66;--red:#ff4444;--blue:#4488ff;
+  --gold:#ffaa00;--purple:#aa44ff;--bg:#06060f;--card:#0d0d1a;
+  --card2:#111122;--border:#1a1a2e;--text:#e0e0e0;--muted:#555;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
+
+/* ANIMATED BG */
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 20% 20%,#00ff8808 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,#4488ff08 0%,transparent 50%);pointer-events:none;z-index:0;}
 
 /* HEADER */
-.header{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);padding:20px;text-align:center;border-bottom:1px solid var(--green);position:relative;overflow:hidden;}
-.header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,#00ff8808 0%,transparent 60%);animation:pulse 4s ease-in-out infinite;}
-@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
-.header h1{font-size:2em;font-weight:700;color:var(--green);letter-spacing:2px;position:relative;}
-.header p{color:var(--muted);font-size:0.85em;margin-top:5px;position:relative;}
-.live-badge{display:inline-block;background:#00ff8822;color:var(--green);border:1px solid var(--green);padding:2px 10px;border-radius:20px;font-size:0.7em;margin-left:10px;animation:blink 2s infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.5;}}
+.header{background:linear-gradient(135deg,#0a0a18,#111128);padding:16px 20px;border-bottom:1px solid #00ff8822;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
+.header-inner{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo h1{font-size:1.3em;font-weight:800;color:var(--green);letter-spacing:1px;}
+.live-dot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:blink 1.5s infinite;box-shadow:0 0 6px var(--green);}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.8);}}
+.header-right{display:flex;align-items:center;gap:10px;}
+.connect-btn{background:linear-gradient(135deg,#4488ff22,#4488ff11);color:var(--blue);border:1px solid #4488ff44;padding:8px 16px;border-radius:8px;font-size:0.78em;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;}
+.connect-btn:hover{background:#4488ff33;box-shadow:0 0 15px #4488ff33;}
+.connect-btn.connected{background:#00ff8822;color:var(--green);border-color:#00ff8844;}
+.wallet-info{font-size:0.7em;color:var(--muted);font-family:'JetBrains Mono',monospace;}
 
-/* STATS BAR */
-.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border);}
-.stat-item{background:var(--card);padding:15px;text-align:center;}
-.stat-item .val{font-size:1.4em;font-weight:700;font-family:'JetBrains Mono',monospace;}
-.stat-item .lbl{font-size:0.7em;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:1px;}
-.stat-green{color:var(--green);}
-.stat-red{color:var(--red);}
-.stat-blue{color:var(--blue);}
-.stat-gold{color:var(--gold);}
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border);}
+.stat-box{background:var(--card);padding:14px 16px;position:relative;overflow:hidden;}
+.stat-box::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;}
+.stat-box:nth-child(1)::after{background:var(--green);}
+.stat-box:nth-child(2)::after{background:var(--blue);}
+.stat-box:nth-child(3)::after{background:var(--gold);}
+.stat-box:nth-child(4)::after{background:var(--purple);}
+.stat-val{font-size:1.5em;font-weight:700;font-family:'JetBrains Mono',monospace;line-height:1;}
+.stat-lbl{font-size:0.65em;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;}
+.c-green{color:var(--green);}
+.c-blue{color:var(--blue);}
+.c-gold{color:var(--gold);}
+.c-purple{color:var(--purple);}
+.c-red{color:var(--red);}
 
-/* WALLETS */
-.section{padding:15px;}
-.section-title{font-size:0.8em;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.section-title::after{content:'';flex:1;height:1px;background:var(--border);}
-.wallets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;}
-.wallet-card{background:var(--card);border:1px solid #00ff8822;border-radius:10px;padding:15px;position:relative;overflow:hidden;}
-.wallet-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),transparent);}
-.wallet-addr{font-family:'JetBrains Mono',monospace;font-size:0.75em;color:var(--muted);margin-top:5px;word-break:break-all;}
-.wallet-chain{display:inline-block;background:#00ff8811;color:var(--green);border:1px solid #00ff8833;padding:2px 8px;border-radius:4px;font-size:0.7em;margin-top:5px;}
-.wallet-balance{font-size:1.1em;font-weight:600;color:var(--green);margin-top:8px;}
+/* MAIN LAYOUT */
+.main{max-width:1200px;margin:0 auto;padding:16px;}
 
-/* MARKETS */
-.market-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:15px;margin-bottom:10px;transition:all 0.2s;position:relative;overflow:hidden;}
-.market-card:hover{border-color:#00ff8844;transform:translateY(-1px);}
-.market-rank{position:absolute;top:10px;right:12px;font-size:0.7em;color:var(--muted);font-family:'JetBrains Mono',monospace;}
-.market-q{font-size:0.9em;font-weight:500;margin-bottom:12px;line-height:1.4;padding-right:30px;}
-.prob-bar{height:8px;background:#1a1a2e;border-radius:4px;overflow:hidden;margin-bottom:10px;}
-.prob-yes{height:100%;border-radius:4px;transition:width 0.5s;background:linear-gradient(90deg,var(--green),#00cc66);}
-.market-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-.tag{padding:4px 10px;border-radius:6px;font-size:0.72em;font-weight:500;font-family:'JetBrains Mono',monospace;}
-.tag-yes{background:#00ff8822;color:var(--green);border:1px solid #00ff8844;}
-.tag-no{background:#ff444422;color:var(--red);border:1px solid #ff444444;}
-.tag-vol{background:#4488ff22;color:var(--blue);border:1px solid #4488ff44;}
-.tag-kelly{background:#ffaa0022;color:var(--gold);border:1px solid #ffaa0044;}
-.tag-date{background:#ffffff11;color:var(--muted);border:1px solid #ffffff22;}
-.signal-badge{padding:3px 10px;border-radius:20px;font-size:0.68em;font-weight:600;letter-spacing:0.5px;}
-.HIGH_UNCERTAINTY{background:#ffaa0022;color:var(--gold);border:1px solid #ffaa0044;}
-.LIKELY_YES{background:#00ff8822;color:var(--green);border:1px solid #00ff8844;}
-.LIKELY_NO{background:#ff444422;color:var(--red);border:1px solid #ff444444;}
-.MONITOR{background:#4488ff22;color:var(--blue);border:1px solid #4488ff44;}
-.sentiment{font-size:0.75em;}
-.news-headlines{margin-top:8px;padding:8px;background:#ffffff05;border-radius:6px;border-left:2px solid var(--border);}
-.headline{font-size:0.68em;color:var(--muted);padding:2px 0;line-height:1.3;}
+/* SECTION */
+.section{margin-bottom:20px;position:relative;z-index:1;}
+.section-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.section-hdr h2{font-size:0.78em;color:var(--muted);text-transform:uppercase;letter-spacing:2px;font-weight:500;}
+.section-hdr::after{content:'';flex:1;height:1px;background:var(--border);}
+.section-hdr .count{background:var(--border);color:var(--muted);padding:2px 8px;border-radius:10px;font-size:0.7em;font-family:'JetBrains Mono',monospace;}
 
-/* TRANSACTIONS */
-.tx-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;}
-.tx-badge{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8em;flex-shrink:0;}
-.tx-yes{background:#00ff8822;color:var(--green);}
-.tx-no{background:#ff444422;color:var(--red);}
-.tx-info{flex:1;}
-.tx-market{font-size:0.78em;color:var(--text);line-height:1.3;}
-.tx-meta{font-size:0.68em;color:var(--muted);margin-top:3px;font-family:'JetBrains Mono',monospace;}
-.tx-amount{text-align:right;flex-shrink:0;}
-.tx-usdc{font-size:0.85em;font-weight:600;color:var(--green);font-family:'JetBrains Mono',monospace;}
-.tx-return{font-size:0.68em;color:var(--muted);}
-.tx-status{font-size:0.62em;background:#4488ff22;color:var(--blue);border:1px solid #4488ff44;padding:2px 6px;border-radius:4px;margin-top:3px;display:inline-block;}
+/* WALLET CARDS */
+.wallets-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin-bottom:12px;}
+.wcard{background:var(--card);border:1px solid #00ff8818;border-radius:12px;padding:14px;position:relative;overflow:hidden;transition:all 0.2s;}
+.wcard:hover{border-color:#00ff8844;transform:translateY(-2px);}
+.wcard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent);}
+.wcard-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.wcard-name{font-size:0.75em;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.wcard-chain{font-size:0.62em;background:#00ff8811;color:var(--green);border:1px solid #00ff8822;padding:2px 6px;border-radius:4px;}
+.wcard-addr{font-family:'JetBrains Mono',monospace;font-size:0.68em;color:var(--muted);margin-bottom:10px;word-break:break-all;}
+.wcard-bal{font-size:1.2em;font-weight:700;color:var(--green);}
+.wcard-state{font-size:0.62em;color:var(--green);margin-top:2px;}
 
-/* BET BUTTON */
-.bet-btn{background:linear-gradient(135deg,var(--green),#00cc66);color:#000;border:none;padding:12px 24px;border-radius:8px;font-weight:700;font-size:0.85em;cursor:pointer;width:100%;margin-top:10px;letter-spacing:1px;transition:all 0.2s;}
-.bet-btn:hover{transform:translateY(-2px);box-shadow:0 5px 20px #00ff8844;}
-.bet-btn:active{transform:translateY(0);}
-.bet-btn:disabled{opacity:0.5;cursor:not-allowed;}
+/* EXTERNAL WALLET */
+.ext-wallet{background:var(--card);border:1px solid #4488ff22;border-radius:12px;padding:14px;}
+.ext-wallet-top{display:flex;justify-content:space-between;align-items:center;}
+.ext-name{font-size:0.75em;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.ext-addr{font-family:'JetBrains Mono',monospace;font-size:0.68em;color:var(--blue);margin-top:6px;}
+.ext-bal{font-size:1.2em;font-weight:700;color:var(--blue);margin-top:8px;}
+.ext-empty{font-size:0.8em;color:var(--muted);text-align:center;padding:10px;}
+
+/* AUTO BET */
+.bet-section{background:linear-gradient(135deg,var(--card),#0a1a0f);border:1px solid #00ff8822;border-radius:12px;padding:16px;margin-bottom:20px;}
+.bet-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.bet-title{font-size:0.85em;font-weight:600;}
+.bet-subtitle{font-size:0.7em;color:var(--muted);margin-top:2px;}
+.bet-btn{background:linear-gradient(135deg,var(--green),var(--green2));color:#000;border:none;padding:10px 20px;border-radius:8px;font-weight:700;font-size:0.8em;cursor:pointer;letter-spacing:0.5px;transition:all 0.2s;font-family:'Inter',sans-serif;white-space:nowrap;}
+.bet-btn:hover{transform:translateY(-2px);box-shadow:0 5px 20px #00ff8855;}
+.bet-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.bet-status{font-size:0.72em;color:var(--muted);margin-top:8px;min-height:16px;}
+.bet-status.success{color:var(--green);}
+.bet-status.error{color:var(--red);}
+
+/* CHART */
+.chart-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:20px;}
+.chart-box canvas{max-height:160px;}
+
+/* MARKET CARDS */
+.mcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;transition:all 0.2s;cursor:pointer;}
+.mcard:hover{border-color:#00ff8833;box-shadow:0 4px 20px #00ff8811;}
+.mcard.expanded .mcard-detail{display:block;}
+.mrank{float:right;font-size:0.65em;color:var(--muted);font-family:'JetBrains Mono',monospace;background:var(--border);padding:2px 6px;border-radius:4px;}
+.mq{font-size:0.88em;font-weight:500;line-height:1.4;margin-bottom:10px;clear:both;}
+.prob-wrap{margin-bottom:10px;}
+.prob-bar{height:6px;background:#1a1a2e;border-radius:3px;overflow:hidden;margin-bottom:4px;}
+.prob-yes{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--green2));transition:width 0.6s ease;}
+.prob-labels{display:flex;justify-content:space-between;font-size:0.65em;font-family:'JetBrains Mono',monospace;}
+.prob-y{color:var(--green);}
+.prob-n{color:var(--red);}
+.mtags{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.tag{padding:3px 8px;border-radius:6px;font-size:0.68em;font-weight:500;font-family:'JetBrains Mono',monospace;border:1px solid;}
+.t-vol{background:#4488ff11;color:var(--blue);border-color:#4488ff33;}
+.t-kelly{background:#ffaa0011;color:var(--gold);border-color:#ffaa0033;}
+.t-date{background:#ffffff08;color:var(--muted);border-color:#ffffff11;}
+.t-sent{background:#ffffff08;color:var(--muted);border-color:transparent;font-size:0.72em;}
+.sig{padding:3px 10px;border-radius:20px;font-size:0.65em;font-weight:700;letter-spacing:0.5px;border:1px solid;}
+.HIGH_UNCERTAINTY{background:#ffaa0011;color:var(--gold);border-color:#ffaa0033;}
+.LIKELY_YES{background:#00ff8811;color:var(--green);border-color:#00ff8833;}
+.LIKELY_NO{background:#ff444411;color:var(--red);border-color:#ff444433;}
+.MONITOR{background:#4488ff11;color:var(--blue);border-color:#4488ff33;}
+.mcard-detail{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
+.headlines{display:flex;flex-direction:column;gap:4px;}
+.hl{font-size:0.68em;color:var(--muted);line-height:1.3;padding:4px 8px;background:#ffffff04;border-radius:4px;border-left:2px solid var(--border);}
+
+/* TX */
+.tx-list{display:flex;flex-direction:column;gap:8px;}
+.txcard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;align-items:center;gap:12px;transition:all 0.2s;}
+.txcard:hover{border-color:#ffffff11;}
+.tx-pos{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75em;flex-shrink:0;font-family:'JetBrains Mono',monospace;}
+.pos-yes{background:#00ff8815;color:var(--green);}
+.pos-no{background:#ff444415;color:var(--red);}
+.tx-body{flex:1;min-width:0;}
+.tx-mkt{font-size:0.78em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tx-sub{font-size:0.65em;color:var(--muted);margin-top:2px;font-family:'JetBrains Mono',monospace;}
+.tx-right{text-align:right;flex-shrink:0;}
+.tx-amt{font-size:0.82em;font-weight:600;color:var(--green);font-family:'JetBrains Mono',monospace;}
+.tx-ret{font-size:0.65em;color:var(--muted);}
+.tx-sim{font-size:0.6em;background:#4488ff11;color:var(--blue);border:1px solid #4488ff22;padding:1px 5px;border-radius:3px;margin-top:2px;display:inline-block;}
+
+/* EMPTY */
+.empty{text-align:center;padding:30px;color:var(--muted);font-size:0.8em;}
+
+/* FAB */
+.fab{position:fixed;bottom:20px;right:20px;width:44px;height:44px;background:var(--card);border:1px solid var(--border);border-radius:50%;cursor:pointer;font-size:1em;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:50;}
+.fab:hover{border-color:var(--green);box-shadow:0 0 15px #00ff8833;}
 
 /* FOOTER */
-.footer{text-align:center;padding:20px;color:var(--muted);font-size:0.72em;border-top:1px solid var(--border);}
-.refresh-fab{position:fixed;bottom:20px;right:20px;background:var(--green);color:#000;border:none;width:50px;height:50px;border-radius:50%;cursor:pointer;font-size:1.2em;box-shadow:0 4px 15px #00ff8844;transition:all 0.2s;}
-.refresh-fab:hover{transform:scale(1.1);}
-.loading{display:none;text-align:center;padding:10px;color:var(--green);font-size:0.8em;}
+.footer{text-align:center;padding:20px;color:var(--muted);font-size:0.7em;border-top:1px solid var(--border);position:relative;z-index:1;}
+
+/* TOAST */
+.toast{position:fixed;top:80px;right:20px;background:var(--card);border:1px solid var(--green);color:var(--green);padding:10px 16px;border-radius:8px;font-size:0.78em;z-index:200;transform:translateX(150%);transition:transform 0.3s;max-width:280px;}
+.toast.show{transform:translateX(0);}
+.toast.error{border-color:var(--red);color:var(--red);}
+
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .stat-val{font-size:1.2em;}
+  .header-inner{flex-wrap:wrap;gap:8px;}
+}
 </style>
 </head>
 <body>
 
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
 <div class="header">
-  <h1>🏛️ InsightAgent <span class="live-badge">● LIVE</span></h1>
-  <p>Polymarket Intelligence — Circle Arc Testnet | Agora Hackathon 2026</p>
-</div>
-
-<div class="stats-bar">
-  <div class="stat-item">
-    <div class="val stat-green">{{ stats.total_bets }}</div>
-    <div class="lbl">Total Bets</div>
-  </div>
-  <div class="stat-item">
-    <div class="val stat-blue">${{ stats.total_usdc }}</div>
-    <div class="lbl">USDC Deployed</div>
-  </div>
-  <div class="stat-item">
-    <div class="val {% if stats.pnl >= 0 %}stat-green{% else %}stat-red{% endif %}">${{ stats.pnl }}</div>
-    <div class="lbl">Est. P&L</div>
-  </div>
-  <div class="stat-item">
-    <div class="val stat-gold">{{ markets|length }}</div>
-    <div class="lbl">Markets Live</div>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="live-dot"></div>
+      <h1>🏛️ InsightAgent</h1>
+    </div>
+    <div class="header-right">
+      <div class="wallet-info" id="walletInfo"></div>
+      <button class="connect-btn" id="connectBtn" onclick="connectWallet()">
+        🦊 Connect Wallet
+      </button>
+    </div>
   </div>
 </div>
 
-<!-- WALLETS -->
-<div class="section">
-  <div class="section-title">💳 Arc Testnet Wallets</div>
-  <div class="wallets-grid">
-    {% for w in wallets %}
-    <div class="wallet-card">
-      <div style="font-weight:600;font-size:0.85em;">Wallet {{ loop.index }}</div>
-      <div class="wallet-addr">{{ w.address }}</div>
-      <div style="margin-top:8px;">
-        <span class="wallet-chain">{{ w.chain }}</span>
-        <span class="wallet-chain" style="margin-left:5px;">{{ w.state }}</span>
+<!-- STATS -->
+<div class="stats-grid">
+  <div class="stat-box">
+    <div class="stat-val c-green">{{ stats.total_bets }}</div>
+    <div class="stat-lbl">Total Bets</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-val c-blue">${{ stats.total_usdc }}</div>
+    <div class="stat-lbl">USDC Deployed</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-val {% if stats.pnl >= 0 %}c-green{% else %}c-red{% endif %}">${{ stats.pnl }}</div>
+    <div class="stat-lbl">Est. P&L</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-val c-purple">{{ markets|length }}</div>
+    <div class="stat-lbl">Markets Live</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- WALLETS -->
+  <div class="section">
+    <div class="section-hdr">
+      <h2>💳 Wallets</h2>
+      <span class="count">Arc Testnet</span>
+    </div>
+    <div class="wallets-row">
+      {% for w in wallets %}
+      <div class="wcard">
+        <div class="wcard-top">
+          <div class="wcard-name">Wallet {{ loop.index }}</div>
+          <div class="wcard-chain">{{ w.chain }}</div>
+        </div>
+        <div class="wcard-addr">{{ w.address }}</div>
+        <div class="wcard-bal">{{ w.balance }}</div>
+        <div class="wcard-state">● {{ w.state }}</div>
       </div>
-      <div class="wallet-balance">{{ w.balance }}</div>
+      {% endfor %}
+      <!-- EXTERNAL WALLET -->
+      <div class="ext-wallet" id="extWalletCard">
+        <div class="ext-wallet-top">
+          <div class="ext-name">External Wallet</div>
+          <span style="font-size:0.65em;color:var(--muted);">MetaMask / WalletConnect</span>
+        </div>
+        <div id="extWalletContent">
+          <div class="ext-empty">Connect wallet to view balance</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTO BET -->
+  <div class="bet-section">
+    <div class="bet-top">
+      <div>
+        <div class="bet-title">⚡ Auto Bet Engine</div>
+        <div class="bet-subtitle">AI picks best market · Kelly Criterion sizing · Arc Testnet</div>
+      </div>
+      <button class="bet-btn" id="betBtn" onclick="placeBet()">
+        🤖 Place Bet (1 USDC)
+      </button>
+    </div>
+    <div class="bet-status" id="betStatus">Agent ready — cron running every 30 minutes</div>
+  </div>
+
+  <!-- P&L CHART -->
+  {% if transactions %}
+  <div class="chart-box">
+    <div class="section-hdr" style="margin-bottom:10px;">
+      <h2>📈 Cumulative P&L</h2>
+    </div>
+    <canvas id="pnlChart"></canvas>
+  </div>
+  {% endif %}
+
+  <!-- MARKETS -->
+  <div class="section">
+    <div class="section-hdr">
+      <h2>📊 Top Markets</h2>
+      <span class="count">{{ markets|length }} found</span>
+    </div>
+    {% for m in markets %}
+    <div class="mcard" onclick="toggleCard(this)">
+      <div class="mrank">#{{ loop.index }}</div>
+      <div class="mq">{{ m.question }}</div>
+      <div class="prob-wrap">
+        <div class="prob-bar">
+          <div class="prob-yes" style="width:{{ m.yes }}%"></div>
+        </div>
+        <div class="prob-labels">
+          <span class="prob-y">YES {{ m.yes }}%</span>
+          <span class="prob-n">NO {{ m.no }}%</span>
+        </div>
+      </div>
+      <div class="mtags">
+        <span class="sig {{ m.signal.replace(' ','_') }}">{{ m.signal }}</span>
+        <span class="tag t-vol">VOL ${{ "{:,.0f}".format(m.volume) }}</span>
+        <span class="tag t-kelly">Kelly {{ m.kelly }}%</span>
+        <span class="tag t-date">{{ m.end_date }}</span>
+        <span class="t-sent">{{ m.news.sentiment }}</span>
+      </div>
+      <div class="mcard-detail">
+        {% if m.news.headlines %}
+        <div class="headlines">
+          {% for h in m.news.headlines %}
+          <div class="hl">📰 {{ h }}</div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div style="font-size:0.72em;color:var(--muted);">No recent news found</div>
+        {% endif %}
+      </div>
     </div>
     {% endfor %}
   </div>
-  <button class="bet-btn" onclick="placeBet()" id="betBtn">
-    ⚡ AUTO BET — Best Market (1 USDC)
-  </button>
-  <div class="loading" id="loading">🤖 Agent analyzing markets...</div>
-</div>
 
-<!-- MARKETS -->
-<div class="section">
-  <div class="section-title">📊 Top Markets ({{ markets|length }} found)</div>
-  {% for m in markets %}
-  <div class="market-card">
-    <div class="market-rank">#{{ loop.index }}</div>
-    <div class="market-q">{{ m.question }}</div>
-    <div class="prob-bar">
-      <div class="prob-yes" style="width:{{ m.yes }}%"></div>
+  <!-- TRANSACTIONS -->
+  <div class="section">
+    <div class="section-hdr">
+      <h2>💸 Transaction History</h2>
+      <span class="count">{{ transactions|length }}</span>
     </div>
-    <div class="market-row">
-      <span class="tag tag-yes">YES {{ m.yes }}%</span>
-      <span class="tag tag-no">NO {{ m.no }}%</span>
-      <span class="tag tag-vol">VOL ${{ "{:,.0f}".format(m.volume) }}</span>
-      <span class="signal-badge {{ m.signal.replace(' ','_') }}">{{ m.signal }}</span>
-      <span class="sentiment">{{ m.news.sentiment }}</span>
-      <span class="tag tag-kelly">Kelly {{ m.kelly }}%</span>
-      <span class="tag tag-date">{{ m.end_date }}</span>
-    </div>
-    {% if m.news.headlines %}
-    <div class="news-headlines">
-      {% for h in m.news.headlines %}
-      <div class="headline">📰 {{ h }}</div>
+    {% if transactions %}
+    <div class="tx-list">
+      {% for tx in transactions %}
+      <div class="txcard">
+        <div class="tx-pos {% if tx.position == 'YES' %}pos-yes{% else %}pos-no{% endif %}">
+          {{ tx.position }}
+        </div>
+        <div class="tx-body">
+          <div class="tx-mkt">{{ tx.market }}</div>
+          <div class="tx-sub">{{ tx.chain }} · {{ tx.wallet }} · @ {{ tx.price }}%</div>
+          <span class="tx-sim">{{ tx.status }}</span>
+        </div>
+        <div class="tx-right">
+          <div class="tx-amt">${{ tx.amount_usdc }}</div>
+          <div class="tx-ret">→ ${{ tx.potential_return }}</div>
+        </div>
+      </div>
       {% endfor %}
     </div>
+    {% else %}
+    <div class="empty">No transactions yet. Click Place Bet to start.</div>
     {% endif %}
   </div>
-  {% endfor %}
-</div>
 
-<!-- TRANSACTIONS -->
-<div class="section">
-  <div class="section-title">💸 Transaction History ({{ transactions|length }})</div>
-  {% if transactions %}
-  {% for tx in transactions %}
-  <div class="tx-card">
-    <div class="tx-badge {% if tx.position == 'YES' %}tx-yes{% else %}tx-no{% endif %}">
-      {{ tx.position }}
-    </div>
-    <div class="tx-info">
-      <div class="tx-market">{{ tx.market }}</div>
-      <div class="tx-meta">{{ tx.chain }} · {{ tx.wallet }} · {{ tx.timestamp }}</div>
-      <span class="tx-status">{{ tx.status }}</span>
-    </div>
-    <div class="tx-amount">
-      <div class="tx-usdc">${{ tx.amount_usdc }} USDC</div>
-      <div class="tx-return">→ ${{ tx.potential_return }}</div>
-    </div>
-  </div>
-  {% endfor %}
-  {% else %}
-  <div style="color:var(--muted);font-size:0.8em;padding:20px;text-align:center;">No transactions yet. Click AUTO BET to start.</div>
-  {% endif %}
 </div>
 
 <div class="footer">
-  Last updated: {{ timestamp }} · Auto-refresh every 5 min · Built for Agora Hackathon 2026
+  Last updated: {{ timestamp }} · Auto-refresh every 5 min · Agora Hackathon 2026 · Circle Arc Testnet
 </div>
 
-<button class="refresh-fab" onclick="location.reload()">🔄</button>
+<button class="fab" onclick="location.reload()" title="Refresh">🔄</button>
 
 <script>
+// TOGGLE MARKET CARD
+function toggleCard(el) {
+  el.classList.toggle('expanded');
+}
+
+// TOAST
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type === 'error' ? ' error' : '');
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+// PLACE BET
 async function placeBet() {
   const btn = document.getElementById('betBtn');
-  const loading = document.getElementById('loading');
+  const status = document.getElementById('betStatus');
   btn.disabled = true;
-  btn.textContent = '⏳ Processing...';
-  loading.style.display = 'block';
+  btn.textContent = '⏳ Analyzing...';
+  status.textContent = '🤖 Agent scanning markets...';
+  status.className = 'bet-status';
   try {
-    const res = await fetch('/api/bet', {method: 'POST'});
+    const res = await fetch('/api/bet', {method:'POST'});
     const data = await res.json();
     if (data.success) {
-      btn.textContent = '✅ Bet Placed! Refreshing...';
-      setTimeout(() => location.reload(), 1500);
+      const tx = data.tx;
+      status.textContent = `✅ Bet placed! ${tx.position} @ ${tx.price}% · $${tx.amount_usdc} USDC · Expected return: $${tx.potential_return}`;
+      status.className = 'bet-status success';
+      showToast(`✅ Bet placed! ${tx.position} @ ${tx.price}%`);
+      setTimeout(() => location.reload(), 2000);
     } else {
-      btn.textContent = '❌ ' + (data.error || 'Error');
+      status.textContent = '❌ ' + (data.error || 'Error placing bet');
+      status.className = 'bet-status error';
+      showToast(data.error || 'Error', 'error');
       btn.disabled = false;
-      loading.style.display = 'none';
+      btn.textContent = '🤖 Place Bet (1 USDC)';
     }
   } catch(e) {
-    btn.textContent = '❌ Connection Error';
+    status.textContent = '❌ Connection error';
+    status.className = 'bet-status error';
     btn.disabled = false;
-    loading.style.display = 'none';
+    btn.textContent = '🤖 Place Bet (1 USDC)';
   }
 }
+
+// WALLET CONNECT
+let connectedAccount = null;
+
+async function connectWallet() {
+  const btn = document.getElementById('connectBtn');
+  const info = document.getElementById('walletInfo');
+
+  if (connectedAccount) {
+    connectedAccount = null;
+    btn.textContent = '🦊 Connect Wallet';
+    btn.className = 'connect-btn';
+    info.textContent = '';
+    document.getElementById('extWalletContent').innerHTML = '<div class="ext-empty">Connect wallet to view balance</div>';
+    return;
+  }
+
+  if (typeof window.ethereum === 'undefined') {
+    showToast('MetaMask not found. Install MetaMask first!', 'error');
+    return;
+  }
+
+  try {
+    btn.textContent = '⏳ Connecting...';
+    const accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
+    connectedAccount = accounts[0];
+
+    const shortAddr = connectedAccount.slice(0,6) + '...' + connectedAccount.slice(-4);
+    btn.textContent = '✅ ' + shortAddr;
+    btn.className = 'connect-btn connected';
+    info.textContent = shortAddr;
+
+    // Get balance
+    const bal = await window.ethereum.request({
+      method: 'eth_getBalance',
+      params: [connectedAccount, 'latest']
+    });
+    const ethBal = (parseInt(bal, 16) / 1e18).toFixed(4);
+
+    document.getElementById('extWalletContent').innerHTML = `
+      <div class="ext-addr">${connectedAccount}</div>
+      <div class="ext-bal">${ethBal} ETH</div>
+      <div style="font-size:0.65em;color:var(--muted);margin-top:4px;">Connected via MetaMask</div>
+    `;
+
+    showToast('✅ Wallet connected: ' + shortAddr);
+
+    // Listen for account changes
+    window.ethereum.on('accountsChanged', (accounts) => {
+      if (accounts.length === 0) {
+        connectedAccount = null;
+        btn.textContent = '🦊 Connect Wallet';
+        btn.className = 'connect-btn';
+        info.textContent = '';
+      } else {
+        location.reload();
+      }
+    });
+
+  } catch(e) {
+    btn.textContent = '🦊 Connect Wallet';
+    showToast('Connection rejected', 'error');
+  }
+}
+
+// P&L CHART
+{% if transactions %}
+const txData = {{ transactions | tojson }};
+if (txData.length > 0) {
+  const labels = txData.slice().reverse().map((t,i) => '#' + (i+1));
+  let cumPnl = 0;
+  const pnlData = txData.slice().reverse().map(t => {
+    cumPnl += parseFloat(t.profit || 0);
+    return parseFloat(cumPnl.toFixed(2));
+  });
+
+  const ctx = document.getElementById('pnlChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'P&L (USDC)',
+        data: pnlData,
+        borderColor: '#00ff88',
+        backgroundColor: 'rgba(0,255,136,0.05)',
+        borderWidth: 2,
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: '#00ff88',
+        pointRadius: 3,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {display: false},
+        tooltip: {
+          backgroundColor: '#0d0d1a',
+          borderColor: '#00ff8844',
+          borderWidth: 1,
+          titleColor: '#00ff88',
+          bodyColor: '#e0e0e0',
+          callbacks: {label: ctx => ' $' + ctx.raw}
+        }
+      },
+      scales: {
+        x: {ticks: {color:'#555',font:{size:10}}, grid: {color:'#1a1a2e'}},
+        y: {ticks: {color:'#555',font:{size:10},callback: v => '$'+v}, grid: {color:'#1a1a2e'}}
+      }
+    }
+  });
+}
+{% endif %}
 </script>
 </body>
 </html>
