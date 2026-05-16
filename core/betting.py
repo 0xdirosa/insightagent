@@ -19,6 +19,40 @@ def save_transaction(tx):
     with open(TRANSACTIONS_FILE, "w") as f:
         json.dump(txs, f, indent=2)
 
+def get_recent_markets(limit=5):
+    """Ambil market yang baru-baru ini di-bet"""
+    txs = load_transactions()
+    return [t.get('market_id', '') for t in txs[:limit]]
+
+def pick_best_market(markets):
+    recent = get_recent_markets(limit=3)
+    
+    # Prioritaskan market yang belum pernah di-bet
+    fresh = [m for m in markets if m.get('id', '') not in recent]
+    pool = fresh if fresh else markets
+    
+    # Filter volume tinggi dan uncertainty
+    candidates = [
+        m for m in pool
+        if m['volume'] > 500000 and 30 <= m['yes'] <= 70
+    ]
+    if not candidates:
+        candidates = [
+            m for m in pool
+            if m['volume'] > 100000 and 20 <= m['yes'] <= 80
+        ]
+    if not candidates:
+        return None
+    
+    # Score: kombinasi volume + uncertainty
+    def score(m):
+        uncertainty = 50 - abs(m['yes'] - 50)
+        vol_score = min(m['volume'] / 1000000, 10)
+        return uncertainty + vol_score
+    
+    candidates.sort(key=score, reverse=True)
+    return candidates[0]
+
 def place_bet(market, wallet, amount_usdc=1.0):
     yes = market['yes'] / 100
     kelly = min(round((0.05 / (1 - yes)) * 100, 1), 10) if yes < 1 else 0
@@ -53,18 +87,3 @@ def place_bet(market, wallet, amount_usdc=1.0):
 
     save_transaction(tx)
     return tx
-
-def pick_best_market(markets):
-    candidates = [
-        m for m in markets
-        if m['volume'] > 500000 and 30 <= m['yes'] <= 70
-    ]
-    if not candidates:
-        candidates = [
-            m for m in markets
-            if m['volume'] > 100000 and 20 <= m['yes'] <= 80
-        ]
-    if not candidates:
-        return None
-    candidates.sort(key=lambda x: x['volume'], reverse=True)
-    return candidates[0]
