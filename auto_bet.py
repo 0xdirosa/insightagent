@@ -8,10 +8,11 @@ from core.wallet import get_wallets
 from core.betting import pick_best_market, place_bet
 from core.reasoning import generate_reasoning
 from core.paymaster import simulate_sponsored_tx, estimate_gas_savings
+from core.anomaly import detect_anomalies, load_price_history, get_anomaly_score
 
 def run():
     print("=" * 65)
-    print("🤖 INSIGHTAGENT — Autonomous Bet Engine v3")
+    print("🤖 INSIGHTAGENT — Autonomous Bet Engine v4")
     print("=" * 65)
 
     print("\n📊 Fetching markets...")
@@ -19,17 +20,39 @@ def run():
     interesting = filter_interesting(markets)
     print(f"✅ Found {len(interesting)} interesting markets")
 
+    print("\n🔍 Detecting anomalies...")
+    anomalies = detect_anomalies(interesting)
+    if anomalies:
+        print(f"🚨 {len(anomalies)} anomalies detected!")
+        for a in anomalies:
+            print(f"   {a['direction']} {a['market'][:50]} ({a['change']:+.1f}%)")
+    else:
+        print("   No significant price movements detected")
+
     print("\n🎯 Picking best market...")
-    best = pick_best_market(interesting)
+    # Prioritaskan market dengan anomali
+    history = load_price_history()
+    if anomalies:
+        # Pilih anomali market dengan volume tertinggi
+        anomaly_ids = {a['market_id'] for a in anomalies}
+        anomaly_markets = [m for m in interesting if m.get('id', m['question'][:30]) in anomaly_ids]
+        best = anomaly_markets[0] if anomaly_markets else pick_best_market(interesting)
+        print(f"   🚨 Anomaly-driven selection!")
+    else:
+        best = pick_best_market(interesting)
+
     if not best:
         print("❌ No suitable market found")
         return
 
     signal = get_signal(best['yes'])
     kelly = kelly_size(best['yes'])
+    anomaly_score = get_anomaly_score(best, history)
 
     print(f"✅ {best['question']}")
     print(f"   Yes: {best['yes']}% | No: {best['no']}% | Vol: ${best['volume']:,.0f}")
+    if anomaly_score > 0:
+        print(f"   ⚡ Anomaly score: {anomaly_score:.1f}% price movement")
 
     print("\n📰 Analyzing news...")
     news = analyze(best['question'])
@@ -53,8 +76,6 @@ def run():
     print("\n⛽ Sponsoring gas via Paymaster...")
     sponsored = simulate_sponsored_tx(wallet['address'], "BET_PLACEMENT")
     print(f"   Gas: {sponsored['gas_amount']} — SPONSORED ✅")
-    savings = estimate_gas_savings(1)
-    print(f"   User saves: {savings['gas_per_tx']}")
 
     print("\n💸 Placing bet (1 USDC)...")
     tx = place_bet(best, wallet, amount_usdc=1.0)

@@ -1,5 +1,6 @@
 import requests
 import json
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def get_markets(limit=30):
     url = "https://gamma-api.polymarket.com/markets"
@@ -51,3 +52,27 @@ def kelly_size(yes_pct, edge=0.05):
     if yes >= 1:
         return 0
     return min(round((edge / (1 - yes)) * 100, 1), 10)
+
+def analyze_market_parallel(market, analyze_fn):
+    """Analyze single market — untuk parallel execution"""
+    from core.markets import get_signal, kelly_size
+    news = analyze_fn(market['question'])
+    signal = get_signal(market['yes'])
+    kelly = kelly_size(market['yes'])
+    return {**market, "news": news, "signal": signal, "kelly": kelly}
+
+def analyze_markets_parallel(markets, analyze_fn, max_workers=5):
+    """Parallel news analysis untuk semua markets"""
+    results = [None] * len(markets)
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_idx = {
+            executor.submit(analyze_market_parallel, m, analyze_fn): i
+            for i, m in enumerate(markets)
+        }
+        for future in as_completed(future_to_idx):
+            idx = future_to_idx[future]
+            try:
+                results[idx] = future.result()
+            except:
+                results[idx] = {**markets[idx], "news": {"sentiment": "🟡 NEUTRAL", "score": 0, "count": 0, "headlines": []}, "signal": get_signal(markets[idx]['yes']), "kelly": kelly_size(markets[idx]['yes'])}
+    return [r for r in results if r]

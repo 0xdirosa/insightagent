@@ -119,3 +119,695 @@
    Return:     $1.66 USDC (+$0.66)
    Confidence: HIGH
    Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 11 interesting markets
+
+🎯 Picking best market...
+✅ Will the Oklahoma City Thunder win the 2026 NBA Finals?
+   Yes: 58.5% | No: 41.5% | Vol: $11,819,418
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: HIGH
+   Position: YES
+   1. High liquidity market ($11,819,418 volume) — low slippage risk
+   2. Moderate probability (58.5% Yes) — monitor for movement
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 10% bankroll allocation — moderate position size
+   5. Buying YES at 58.5¢ — implied probability may be undervalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         4D675313
+   Position:   YES @ 58.5%
+   Amount:     $1.0 USDC
+   Return:     $1.71 USDC (+$0.71)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: HIGH
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 12 interesting markets
+
+🎯 Picking best market...
+✅ Will China invades Taiwan before GTA VI?
+   Yes: 50.5% | No: 49.5% | Vol: $1,826,585
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: MEDIUM
+   Position: YES
+   1. Good liquidity ($1,826,585 volume)
+   2. Market is near 50/50 (50.5% Yes) — high uncertainty, potential mispricing
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 10% bankroll allocation — moderate position size
+   5. HIGH UNCERTAINTY signal — contrarian opportunity if news diverges from price
+   6. Buying YES at 50.5¢ — implied probability may be undervalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         5AC342BE
+   Position:   YES @ 50.5%
+   Amount:     $1.0 USDC
+   Return:     $1.98 USDC (+$0.98)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: MEDIUM
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 12 interesting markets
+
+🎯 Picking best market...
+✅ Will Jesus Christ return before GTA VI?
+   Yes: 48.5% | No: 51.5% | Vol: $11,372,519
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: HIGH
+   Position: NO
+   1. High liquidity market ($11,372,519 volume) — low slippage risk
+   2. Market is near 50/50 (48.5% Yes) — high uncertainty, potential mispricing
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 9.7% bankroll allocation — moderate position size
+   5. HIGH UNCERTAINTY signal — contrarian opportunity if news diverges from price
+   6. Buying NO at 51.5¢ — implied probability may be overvalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         218BA607
+   Position:   NO @ 51.5%
+   Amount:     $1.0 USDC
+   Return:     $1.94 USDC (+$0.94)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: HIGH
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 12 interesting markets
+
+🎯 Picking best market...
+✅ Will bitcoin hit $1m before GTA VI?
+   Yes: 48.6% | No: 51.4% | Vol: $4,161,462
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: MEDIUM
+   Position: NO
+   1. Good liquidity ($4,161,462 volume)
+   2. Market is near 50/50 (48.6% Yes) — high uncertainty, potential mispricing
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 9.7% bankroll allocation — moderate position size
+   5. HIGH UNCERTAINTY signal — contrarian opportunity if news diverges from price
+   6. Buying NO at 51.4¢ — implied probability may be overvalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         3CB138F3
+   Position:   NO @ 51.4%
+   Amount:     $1.0 USDC
+   Return:     $1.95 USDC (+$0.95)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: MEDIUM
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 12 interesting markets
+
+🎯 Picking best market...
+✅ Will the Oklahoma City Thunder win the 2026 NBA Finals?
+   Yes: 58.5% | No: 41.5% | Vol: $11,823,159
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (5 articles)
+
+🧠 Generating reasoning...
+   Confidence: HIGH
+   Position: YES
+   1. High liquidity market ($11,823,159 volume) — low slippage risk
+   2. Moderate probability (58.5% Yes) — monitor for movement
+   3. Neutral news sentiment (5 articles) — no strong directional signal
+   4. Kelly Criterion recommends 10% bankroll allocation — moderate position size
+   5. Buying YES at 58.5¢ — implied probability may be undervalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         5ADC2A81
+   Position:   YES @ 58.5%
+   Amount:     $1.0 USDC
+   Return:     $1.71 USDC (+$0.71)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: HIGH
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 12 interesting markets
+
+🎯 Picking best market...
+✅ Will China invades Taiwan before GTA VI?
+   Yes: 50.5% | No: 49.5% | Vol: $1,826,719
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: MEDIUM
+   Position: YES
+   1. Good liquidity ($1,826,719 volume)
+   2. Market is near 50/50 (50.5% Yes) — high uncertainty, potential mispricing
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 10% bankroll allocation — moderate position size
+   5. HIGH UNCERTAINTY signal — contrarian opportunity if news diverges from price
+   6. Buying YES at 50.5¢ — implied probability may be undervalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         30A88C70
+   Position:   YES @ 50.5%
+   Amount:     $1.0 USDC
+   Return:     $1.98 USDC (+$0.98)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: MEDIUM
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 12 interesting markets
+
+🎯 Picking best market...
+✅ Will Jesus Christ return before GTA VI?
+   Yes: 48.5% | No: 51.5% | Vol: $11,374,550
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: HIGH
+   Position: NO
+   1. High liquidity market ($11,374,550 volume) — low slippage risk
+   2. Market is near 50/50 (48.5% Yes) — high uncertainty, potential mispricing
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 9.7% bankroll allocation — moderate position size
+   5. HIGH UNCERTAINTY signal — contrarian opportunity if news diverges from price
+   6. Buying NO at 51.5¢ — implied probability may be overvalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         DAFD6E53
+   Position:   NO @ 51.5%
+   Amount:     $1.0 USDC
+   Return:     $1.94 USDC (+$0.94)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: HIGH
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 12 interesting markets
+
+🎯 Picking best market...
+✅ Will bitcoin hit $1m before GTA VI?
+   Yes: 48.6% | No: 51.4% | Vol: $4,161,639
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: MEDIUM
+   Position: NO
+   1. Good liquidity ($4,161,639 volume)
+   2. Market is near 50/50 (48.6% Yes) — high uncertainty, potential mispricing
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 9.7% bankroll allocation — moderate position size
+   5. HIGH UNCERTAINTY signal — contrarian opportunity if news diverges from price
+   6. Buying NO at 51.4¢ — implied probability may be overvalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         5E3350F8
+   Position:   NO @ 51.4%
+   Amount:     $1.0 USDC
+   Return:     $1.95 USDC (+$0.95)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: MEDIUM
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 12 interesting markets
+
+🎯 Picking best market...
+✅ Will the Oklahoma City Thunder win the 2026 NBA Finals?
+   Yes: 58.5% | No: 41.5% | Vol: $11,836,894
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (5 articles)
+
+🧠 Generating reasoning...
+   Confidence: HIGH
+   Position: YES
+   1. High liquidity market ($11,836,894 volume) — low slippage risk
+   2. Moderate probability (58.5% Yes) — monitor for movement
+   3. Neutral news sentiment (5 articles) — no strong directional signal
+   4. Kelly Criterion recommends 10% bankroll allocation — moderate position size
+   5. Buying YES at 58.5¢ — implied probability may be undervalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         3E43406E
+   Position:   YES @ 58.5%
+   Amount:     $1.0 USDC
+   Return:     $1.71 USDC (+$0.71)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: HIGH
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 12 interesting markets
+
+🎯 Picking best market...
+✅ Will China invades Taiwan before GTA VI?
+   Yes: 50.5% | No: 49.5% | Vol: $1,826,830
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: MEDIUM
+   Position: YES
+   1. Good liquidity ($1,826,830 volume)
+   2. Market is near 50/50 (50.5% Yes) — high uncertainty, potential mispricing
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 10% bankroll allocation — moderate position size
+   5. HIGH UNCERTAINTY signal — contrarian opportunity if news diverges from price
+   6. Buying YES at 50.5¢ — implied probability may be undervalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         D6204DD4
+   Position:   YES @ 50.5%
+   Amount:     $1.0 USDC
+   Return:     $1.98 USDC (+$0.98)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: MEDIUM
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 12 interesting markets
+
+🎯 Picking best market...
+✅ Will Jesus Christ return before GTA VI?
+   Yes: 48.5% | No: 51.5% | Vol: $11,375,103
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: HIGH
+   Position: NO
+   1. High liquidity market ($11,375,103 volume) — low slippage risk
+   2. Market is near 50/50 (48.5% Yes) — high uncertainty, potential mispricing
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 9.7% bankroll allocation — moderate position size
+   5. HIGH UNCERTAINTY signal — contrarian opportunity if news diverges from price
+   6. Buying NO at 51.5¢ — implied probability may be overvalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         C0CD7DCE
+   Position:   NO @ 51.5%
+   Amount:     $1.0 USDC
+   Return:     $1.94 USDC (+$0.94)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: HIGH
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 12 interesting markets
+
+🎯 Picking best market...
+✅ Will bitcoin hit $1m before GTA VI?
+   Yes: 48.8% | No: 51.2% | Vol: $4,161,794
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: MEDIUM
+   Position: NO
+   1. Good liquidity ($4,161,794 volume)
+   2. Market is near 50/50 (48.8% Yes) — high uncertainty, potential mispricing
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 9.8% bankroll allocation — moderate position size
+   5. HIGH UNCERTAINTY signal — contrarian opportunity if news diverges from price
+   6. Buying NO at 51.2¢ — implied probability may be overvalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         BE741CF8
+   Position:   NO @ 51.2%
+   Amount:     $1.0 USDC
+   Return:     $1.95 USDC (+$0.95)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: MEDIUM
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 12 interesting markets
+
+🎯 Picking best market...
+✅ Will the Oklahoma City Thunder win the 2026 NBA Finals?
+   Yes: 58.5% | No: 41.5% | Vol: $11,846,746
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (5 articles)
+
+🧠 Generating reasoning...
+   Confidence: HIGH
+   Position: YES
+   1. High liquidity market ($11,846,746 volume) — low slippage risk
+   2. Moderate probability (58.5% Yes) — monitor for movement
+   3. Neutral news sentiment (5 articles) — no strong directional signal
+   4. Kelly Criterion recommends 10% bankroll allocation — moderate position size
+   5. Buying YES at 58.5¢ — implied probability may be undervalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         2DA2D20C
+   Position:   YES @ 58.5%
+   Amount:     $1.0 USDC
+   Return:     $1.71 USDC (+$0.71)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: HIGH
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 11 interesting markets
+
+🎯 Picking best market...
+✅ Will China invades Taiwan before GTA VI?
+   Yes: 50.5% | No: 49.5% | Vol: $1,826,866
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: MEDIUM
+   Position: YES
+   1. Good liquidity ($1,826,866 volume)
+   2. Market is near 50/50 (50.5% Yes) — high uncertainty, potential mispricing
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 10% bankroll allocation — moderate position size
+   5. HIGH UNCERTAINTY signal — contrarian opportunity if news diverges from price
+   6. Buying YES at 50.5¢ — implied probability may be undervalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         F91DA35D
+   Position:   YES @ 50.5%
+   Amount:     $1.0 USDC
+   Return:     $1.98 USDC (+$0.98)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: MEDIUM
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 11 interesting markets
+
+🎯 Picking best market...
+✅ Will Jesus Christ return before GTA VI?
+   Yes: 48.5% | No: 51.5% | Vol: $11,375,536
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: HIGH
+   Position: NO
+   1. High liquidity market ($11,375,536 volume) — low slippage risk
+   2. Market is near 50/50 (48.5% Yes) — high uncertainty, potential mispricing
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 9.7% bankroll allocation — moderate position size
+   5. HIGH UNCERTAINTY signal — contrarian opportunity if news diverges from price
+   6. Buying NO at 51.5¢ — implied probability may be overvalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         CB3493F3
+   Position:   NO @ 51.5%
+   Amount:     $1.0 USDC
+   Return:     $1.94 USDC (+$0.94)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: HIGH
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 11 interesting markets
+
+🎯 Picking best market...
+✅ Will bitcoin hit $1m before GTA VI?
+   Yes: 48.8% | No: 51.2% | Vol: $4,161,872
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: MEDIUM
+   Position: NO
+   1. Good liquidity ($4,161,872 volume)
+   2. Market is near 50/50 (48.8% Yes) — high uncertainty, potential mispricing
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 9.8% bankroll allocation — moderate position size
+   5. HIGH UNCERTAINTY signal — contrarian opportunity if news diverges from price
+   6. Buying NO at 51.2¢ — implied probability may be overvalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         8AAA5223
+   Position:   NO @ 51.2%
+   Amount:     $1.0 USDC
+   Return:     $1.95 USDC (+$0.95)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: MEDIUM
+   Chain:      ARC-TESTNET
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v3
+=================================================================
+
+📊 Fetching markets...
+✅ Found 11 interesting markets
+
+🎯 Picking best market...
+✅ Will the Oklahoma City Thunder win the 2026 NBA Finals?
+   Yes: 58.5% | No: 41.5% | Vol: $11,850,394
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (5 articles)
+
+🧠 Generating reasoning...
+   Confidence: HIGH
+   Position: YES
+   1. High liquidity market ($11,850,394 volume) — low slippage risk
+   2. Moderate probability (58.5% Yes) — monitor for movement
+   3. Neutral news sentiment (5 articles) — no strong directional signal
+   4. Kelly Criterion recommends 10% bankroll allocation — moderate position size
+   5. Buying YES at 58.5¢ — implied probability may be undervalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+⛽ Sponsoring gas via Paymaster...
+   Gas: 0.01 USDC — SPONSORED ✅
+   User saves: ~0.01 USDC
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         A22ABE25
+   Position:   YES @ 58.5%
+   Amount:     $1.0 USDC
+   Return:     $1.71 USDC (+$0.71)
+   Gas:        0.01 USDC (SPONSORED)
+   Confidence: HIGH
+   Chain:      ARC-TESTNET
