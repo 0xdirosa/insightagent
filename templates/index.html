@@ -72,6 +72,28 @@ body { background: #0a0a0f; color: #e0e0e0; font-family: 'Courier New', monospac
   {% endfor %}
 </div>
 
+<div class="markets">
+  <h2>💸 Transaction History ({{ transactions|length }})</h2>
+  {% if transactions %}
+  {% for tx in transactions %}
+  <div class="market-card">
+    <div class="market-question">{{ tx.market }}</div>
+    <div class="market-stats">
+      <span class="stat {% if tx.position == 'YES' %}yes{% else %}no{% endif %}">{{ tx.position }}</span>
+      <span class="stat">@ {{ tx.price }}%</span>
+      <span class="stat vol">${{ tx.amount_usdc }} USDC</span>
+      <span class="stat yes">Return: ${{ tx.potential_return }}</span>
+      <span class="stat">{{ tx.chain }}</span>
+      <span class="stat">{{ tx.timestamp }}</span>
+      <span class="signal MONITOR">{{ tx.status }}</span>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p style="color:#555; padding:10px;">No transactions yet.</p>
+  {% endif %}
+</div>
+
 <div class="timestamp">Last updated: {{ timestamp }}</div>
 <button class="refresh-btn" onclick="location.reload()">🔄 Refresh</button>
 </body>

@@ -87,12 +87,18 @@ def get_wallets():
     except:
         return []
 
+def get_transactions():
+    try:
+        with open("transactions.json", "r") as f:
+            return json.load(f)
+    except:
+        return []
+
 @app.route("/")
 def index():
     markets = get_markets()
     interesting = [m for m in markets if m['volume'] > 100000 and 20 <= m['yes'] <= 80]
     interesting.sort(key=lambda x: x['volume'], reverse=True)
-    
     result = []
     for m in interesting[:10]:
         query = clean_query(m['question'])
@@ -109,11 +115,10 @@ def index():
         else:
             signal = "MONITOR"
         result.append({**m, "sentiment": sentiment, "signal": signal, "kelly": kelly})
-    
     wallets = get_wallets()
+    transactions = get_transactions()
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
-    return render_template("index.html", markets=result, wallets=wallets, timestamp=timestamp)
+    return render_template("index.html", markets=result, wallets=wallets, timestamp=timestamp, transactions=transactions)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)
