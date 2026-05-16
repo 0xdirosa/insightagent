@@ -82,3 +82,40 @@
    Potential return: $1.66 USDC
    Chain: ARC-TESTNET
    TX ID: aabf46ba
+=================================================================
+🤖 INSIGHTAGENT — Autonomous Bet Engine v2
+=================================================================
+
+📊 Fetching markets...
+✅ Found 11 interesting markets
+
+🎯 Picking best market...
+✅ Will the Colorado Avalanche win the 2026 NHL Stanley Cup?
+   Yes: 39.9% | No: 60.1% | Vol: $14,428,008
+
+📰 Analyzing news...
+   Sentiment: 🟡 NEUTRAL (0 articles)
+
+🧠 Generating reasoning...
+   Confidence: HIGH
+   Position: NO
+
+   Reasoning:
+   1. High liquidity market ($14,428,008 volume) — low slippage risk
+   2. Moderate probability (39.9% Yes) — monitor for movement
+   3. No recent news found — price may not reflect latest information
+   4. Kelly Criterion recommends 8.3% bankroll allocation — moderate position size
+   5. Buying NO at 60.1¢ — implied probability may be overvalued
+
+🔑 Getting wallet...
+✅ 0x0ee2a0...a8b943 (ARC-TESTNET)
+
+💸 Placing bet (1 USDC)...
+
+✅ BET PLACED!
+   ID:         0A646A22
+   Position:   NO @ 60.1%
+   Amount:     $1.0 USDC
+   Return:     $1.66 USDC (+$0.66)
+   Confidence: HIGH
+   Chain:      ARC-TESTNET

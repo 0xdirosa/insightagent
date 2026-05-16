@@ -298,6 +298,37 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
     {% endfor %}
   </div>
 
+<!-- REASONING LOG -->
+<div class="section">
+  <div class="section-hdr">
+    <h2>🧠 Agent Reasoning Log</h2>
+    <span class="count">{{ reasoning_log|length }}</span>
+  </div>
+  {% if reasoning_log %}
+  {% for r in reasoning_log %}
+  <div class="mcard" onclick="toggleCard(this)" style="border-color:#aa44ff22;">
+    <div class="mrank" style="color:#aa44ff;">{{ r.confidence }}</div>
+    <div class="mq">{{ r.market }}</div>
+    <div class="mtags" style="margin-bottom:8px;">
+      <span class="sig {{ r.signal.replace(' ','_') }}">{{ r.signal }}</span>
+      <span class="tag" style="background:#aa44ff11;color:#aa44ff;border-color:#aa44ff33;">{{ r.position }}</span>
+      <span class="tag t-date">{{ r.timestamp }}</span>
+      <span class="t-sent">{{ r.sentiment }}</span>
+    </div>
+    <div class="mcard-detail">
+      <div class="headlines">
+        {% for reason in r.reasons %}
+        <div class="hl">{{ loop.index }}. {{ reason }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="empty">No reasoning log yet. Run auto bet to generate.</div>
+  {% endif %}
+</div>
+
   <!-- TRANSACTIONS -->
   <div class="section">
     <div class="section-hdr">

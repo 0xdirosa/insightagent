@@ -6,11 +6,12 @@ from core.markets import get_markets, filter_interesting, get_signal, kelly_size
 from core.news import analyze
 from core.wallet import get_wallets
 from core.betting import pick_best_market, place_bet
+from core.reasoning import generate_reasoning
 
 def run():
-    print("=" * 60)
-    print("🤖 INSIGHTAGENT — Auto Bet Engine")
-    print("=" * 60)
+    print("=" * 65)
+    print("🤖 INSIGHTAGENT — Autonomous Bet Engine v2")
+    print("=" * 65)
 
     print("\n📊 Fetching markets...")
     markets = get_markets(limit=50)
@@ -23,12 +24,23 @@ def run():
         print("❌ No suitable market found")
         return
 
+    signal = get_signal(best['yes'])
+    kelly = kelly_size(best['yes'])
+
     print(f"✅ {best['question']}")
     print(f"   Yes: {best['yes']}% | No: {best['no']}% | Vol: ${best['volume']:,.0f}")
 
     print("\n📰 Analyzing news...")
     news = analyze(best['question'])
     print(f"   Sentiment: {news['sentiment']} ({news['count']} articles)")
+
+    print("\n🧠 Generating reasoning...")
+    reasoning = generate_reasoning(best, news, signal, kelly)
+    print(f"   Confidence: {reasoning['confidence']}")
+    print(f"   Position: {reasoning['position']}")
+    print(f"\n   Reasoning:")
+    for i, r in enumerate(reasoning['reasons'], 1):
+        print(f"   {i}. {r}")
 
     print("\n🔑 Getting wallet...")
     wallets = get_wallets()
@@ -42,12 +54,12 @@ def run():
     tx = place_bet(best, wallet, amount_usdc=1.0)
 
     print(f"\n✅ BET PLACED!")
-    print(f"   ID:       {tx['id']}")
-    print(f"   Position: {tx['position']} @ {tx['price']}%")
-    print(f"   Amount:   ${tx['amount_usdc']} USDC")
-    print(f"   Return:   ${tx['potential_return']} USDC (+${tx['profit']})")
-    print(f"   Chain:    {tx['chain']}")
-    print(f"   News:     {news['sentiment']}")
+    print(f"   ID:         {tx['id']}")
+    print(f"   Position:   {tx['position']} @ {tx['price']}%")
+    print(f"   Amount:     ${tx['amount_usdc']} USDC")
+    print(f"   Return:     ${tx['potential_return']} USDC (+${tx['profit']})")
+    print(f"   Confidence: {reasoning['confidence']}")
+    print(f"   Chain:      {tx['chain']}")
 
 if __name__ == "__main__":
     run()

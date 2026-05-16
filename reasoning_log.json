@@ -1,0 +1,42 @@
+[
+  {
+    "timestamp": "2026-05-16 14:30:02",
+    "market": "Will the Colorado Avalanche win the 2026 NHL Stanley Cup?",
+    "signal": "MONITOR",
+    "position": "NO",
+    "confidence": "HIGH",
+    "yes_price": 39.9,
+    "no_price": 60.1,
+    "volume": 14428008.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 8.3,
+    "reasons": [
+      "High liquidity market ($14,428,008 volume) \u2014 low slippage risk",
+      "Moderate probability (39.9% Yes) \u2014 monitor for movement",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 8.3% bankroll allocation \u2014 moderate position size",
+      "Buying NO at 60.1\u00a2 \u2014 implied probability may be overvalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-16 14:25:11",
+    "market": "Will the Colorado Avalanche win the 2026 NHL Stanley Cup?",
+    "signal": "MONITOR",
+    "position": "NO",
+    "confidence": "HIGH",
+    "yes_price": 39.9,
+    "no_price": 60.1,
+    "volume": 14428008.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 8.3,
+    "reasons": [
+      "High liquidity market ($14,428,008 volume) \u2014 low slippage risk",
+      "Moderate probability (39.9% Yes) \u2014 monitor for movement",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 8.3% bankroll allocation \u2014 moderate position size",
+      "Buying NO at 60.1\u00a2 \u2014 implied probability may be overvalued"
+    ],
+    "news_count": 0
+  }
+]
