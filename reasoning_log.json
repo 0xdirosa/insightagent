@@ -1,5 +1,26 @@
 [
   {
+    "timestamp": "2026-05-16 14:39:29",
+    "market": "Will bitcoin hit $1m before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "NO",
+    "confidence": "MEDIUM",
+    "yes_price": 48.6,
+    "no_price": 51.4,
+    "volume": 4160963.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 9.7,
+    "reasons": [
+      "Good liquidity ($4,160,963 volume)",
+      "Market is near 50/50 (48.6% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 9.7% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying NO at 51.4\u00a2 \u2014 implied probability may be overvalued"
+    ],
+    "news_count": 0
+  },
+  {
     "timestamp": "2026-05-16 14:36:13",
     "market": "Will Jesus Christ return before GTA VI?",
     "signal": "HIGH UNCERTAINTY",

@@ -7,10 +7,11 @@ from core.news import analyze
 from core.wallet import get_wallets
 from core.betting import pick_best_market, place_bet
 from core.reasoning import generate_reasoning
+from core.paymaster import simulate_sponsored_tx, estimate_gas_savings
 
 def run():
     print("=" * 65)
-    print("🤖 INSIGHTAGENT — Autonomous Bet Engine v2")
+    print("🤖 INSIGHTAGENT — Autonomous Bet Engine v3")
     print("=" * 65)
 
     print("\n📊 Fetching markets...")
@@ -38,7 +39,6 @@ def run():
     reasoning = generate_reasoning(best, news, signal, kelly)
     print(f"   Confidence: {reasoning['confidence']}")
     print(f"   Position: {reasoning['position']}")
-    print(f"\n   Reasoning:")
     for i, r in enumerate(reasoning['reasons'], 1):
         print(f"   {i}. {r}")
 
@@ -50,6 +50,12 @@ def run():
     wallet = wallets[0]
     print(f"✅ {wallet['short']} ({wallet['chain']})")
 
+    print("\n⛽ Sponsoring gas via Paymaster...")
+    sponsored = simulate_sponsored_tx(wallet['address'], "BET_PLACEMENT")
+    print(f"   Gas: {sponsored['gas_amount']} — SPONSORED ✅")
+    savings = estimate_gas_savings(1)
+    print(f"   User saves: {savings['gas_per_tx']}")
+
     print("\n💸 Placing bet (1 USDC)...")
     tx = place_bet(best, wallet, amount_usdc=1.0)
 
@@ -58,6 +64,7 @@ def run():
     print(f"   Position:   {tx['position']} @ {tx['price']}%")
     print(f"   Amount:     ${tx['amount_usdc']} USDC")
     print(f"   Return:     ${tx['potential_return']} USDC (+${tx['profit']})")
+    print(f"   Gas:        {sponsored['gas_amount']} (SPONSORED)")
     print(f"   Confidence: {reasoning['confidence']}")
     print(f"   Chain:      {tx['chain']}")
 
