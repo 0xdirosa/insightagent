@@ -1,124 +1,69 @@
-from flask import Flask, render_template
-import requests
-import json
+from flask import Flask, render_template, jsonify
 import os
 from datetime import datetime
 from dotenv import load_dotenv
-
 load_dotenv()
+
+from core.markets import get_markets, filter_interesting, get_signal, kelly_size
+from core.news import analyze
+from core.wallet import get_wallets, get_balance, get_stats
+from core.betting import load_transactions, place_bet, pick_best_market
 
 app = Flask(__name__)
 
-NEWS_API_KEY = os.getenv("NEWS_API_KEY")
-CIRCLE_API_KEY = os.getenv("CIRCLE_API_KEY")
-BASE_URL = "https://api.circle.com/v1/w3s"
-
-def get_markets():
-    url = "https://gamma-api.polymarket.com/markets"
-    params = {"limit": 30, "active": "true", "closed": "false"}
-    response = requests.get(url, params=params)
-    markets = response.json()
-    result = []
-    for m in markets:
-        prices = m.get('outcomePrices', '[]')
-        if isinstance(prices, str):
-            try:
-                prices = json.loads(prices)
-            except:
-                prices = []
-        yes_price = float(prices[0]) if prices else 0
-        volume = float(m.get('volume', 0))
-        result.append({
-            "question": m['question'],
-            "yes": round(yes_price * 100, 1),
-            "no": round((1 - yes_price) * 100, 1),
-            "volume": round(volume, 0)
-        })
-    return result
-
-def clean_query(question):
-    stopwords = ["will", "the", "a", "an", "before", "after", "by", "in",
-                 "on", "to", "be", "is", "are", "was", "win", "lose", "?"]
-    words = question.lower().replace("?", "").split()
-    cleaned = [w for w in words if w not in stopwords]
-    return " ".join(cleaned[:4])
-
-def get_news(query):
-    try:
-        url = "https://newsapi.org/v2/everything"
-        params = {
-            "q": query,
-            "apiKey": NEWS_API_KEY,
-            "language": "en",
-            "sortBy": "publishedAt",
-            "pageSize": 5
-        }
-        response = requests.get(url, params=params, timeout=5)
-        data = response.json()
-        return data.get("articles", [])
-    except:
-        return []
-
-def news_sentiment(articles):
-    positive = ["win", "surge", "rally", "confirmed", "approved", "leads", "ahead", "likely"]
-    negative = ["lose", "drop", "crash", "denied", "rejected", "trails", "unlikely", "fail"]
-    score = 0
-    for a in articles:
-        text = (a.get("title","") + " " + a.get("description","")).lower()
-        score += sum(1 for w in positive if w in text)
-        score -= sum(1 for w in negative if w in text)
-    if score > 2:
-        return "🟢 BULLISH"
-    elif score < -2:
-        return "🔴 BEARISH"
-    else:
-        return "🟡 NEUTRAL"
-
-def get_wallets():
-    try:
-        headers = {
-            "Authorization": f"Bearer {CIRCLE_API_KEY}",
-            "Content-Type": "application/json"
-        }
-        response = requests.get(f"{BASE_URL}/wallets", headers=headers, timeout=5)
-        data = response.json()
-        wallets = data.get("data", {}).get("wallets", [])
-        return [{"address": w.get("address","N/A"), "chain": w.get("blockchain","N/A"), "state": w.get("state","N/A")} for w in wallets]
-    except:
-        return []
-
-def get_transactions():
-    try:
-        with open("transactions.json", "r") as f:
-            return json.load(f)
-    except:
-        return []
-
 @app.route("/")
 def index():
-    markets = get_markets()
-    interesting = [m for m in markets if m['volume'] > 100000 and 20 <= m['yes'] <= 80]
-    interesting.sort(key=lambda x: x['volume'], reverse=True)
+    markets = get_markets(limit=30)
+    interesting = filter_interesting(markets)[:10]
+    
     result = []
-    for m in interesting[:10]:
-        query = clean_query(m['question'])
-        articles = get_news(query)
-        sentiment = news_sentiment(articles) if articles else "🟡 NEUTRAL"
-        yes = m['yes'] / 100
-        kelly = min(round((0.05 / (1 - yes)) * 100, 1), 10) if yes < 1 else 0
-        if 45 <= m['yes'] <= 55:
-            signal = "HIGH UNCERTAINTY"
-        elif m['yes'] >= 65:
-            signal = "LIKELY YES"
-        elif m['yes'] <= 35:
-            signal = "LIKELY NO"
-        else:
-            signal = "MONITOR"
-        result.append({**m, "sentiment": sentiment, "signal": signal, "kelly": kelly})
+    for m in interesting:
+        news = analyze(m['question'])
+        signal = get_signal(m['yes'])
+        kelly = kelly_size(m['yes'])
+        result.append({**m, "news": news, "signal": signal, "kelly": kelly})
+    
     wallets = get_wallets()
-    transactions = get_transactions()
+    for w in wallets:
+        w['balance'] = get_balance(w['id']) if w.get('id') else "N/A"
+    
+    transactions = load_transactions()
+    stats = get_stats()
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return render_template("index.html", markets=result, wallets=wallets, timestamp=timestamp, transactions=transactions)
+    
+    return render_template("index.html",
+        markets=result,
+        wallets=wallets,
+        transactions=transactions,
+        stats=stats,
+        timestamp=timestamp
+    )
+
+@app.route("/api/bet", methods=["POST"])
+def api_bet():
+    try:
+        markets = get_markets(limit=50)
+        interesting = filter_interesting(markets)
+        best = pick_best_market(interesting)
+        if not best:
+            return jsonify({"error": "No suitable market"}), 400
+        wallets = get_wallets()
+        if not wallets:
+            return jsonify({"error": "No wallet"}), 400
+        tx = place_bet(best, wallets[0], amount_usdc=1.0)
+        return jsonify({"success": True, "tx": tx})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/markets")
+def api_markets():
+    markets = get_markets(limit=30)
+    interesting = filter_interesting(markets)[:10]
+    return jsonify(interesting)
+
+@app.route("/api/stats")
+def api_stats():
+    return jsonify(get_stats())
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)

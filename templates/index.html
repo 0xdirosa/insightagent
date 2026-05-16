@@ -6,96 +6,223 @@
 <meta http-equiv="refresh" content="300">
 <title>InsightAgent — Polymarket Intelligence</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #0a0a0f; color: #e0e0e0; font-family: 'Courier New', monospace; }
-.header { background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 20px; text-align: center; border-bottom: 1px solid #00ff88; }
-.header h1 { color: #00ff88; font-size: 1.8em; }
-.header p { color: #888; margin-top: 5px; }
-.wallets { display: flex; gap: 10px; padding: 15px; flex-wrap: wrap; }
-.wallet-card { background: #111; border: 1px solid #00ff8844; border-radius: 8px; padding: 12px; flex: 1; min-width: 200px; }
-.wallet-card h3 { color: #00ff88; font-size: 0.8em; margin-bottom: 5px; }
-.wallet-card p { font-size: 0.7em; color: #aaa; word-break: break-all; }
-.markets { padding: 15px; }
-.markets h2 { color: #00ff88; margin-bottom: 15px; }
-.market-card { background: #111; border: 1px solid #222; border-radius: 8px; padding: 15px; margin-bottom: 12px; }
-.market-card:hover { border-color: #00ff8844; }
-.market-question { font-size: 0.9em; margin-bottom: 10px; color: #fff; }
-.market-stats { display: flex; gap: 15px; flex-wrap: wrap; font-size: 0.8em; }
-.stat { background: #1a1a2e; padding: 5px 10px; border-radius: 4px; }
-.yes { color: #00ff88; }
-.no { color: #ff4444; }
-.vol { color: #4488ff; }
-.signal { padding: 3px 8px; border-radius: 4px; font-size: 0.75em; font-weight: bold; }
-.LIKELY_YES { background: #00ff8822; color: #00ff88; }
-.LIKELY_NO { background: #ff444422; color: #ff4444; }
-.HIGH_UNCERTAINTY { background: #ffaa0022; color: #ffaa00; }
-.MONITOR { background: #4488ff22; color: #4488ff; }
-.bar-container { margin-top: 8px; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
-.bar-yes { height: 100%; background: #00ff88; border-radius: 3px; transition: width 0.5s; }
-.refresh-btn { position: fixed; bottom: 20px; right: 20px; background: #00ff88; color: #000; border: none; padding: 12px 20px; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 0.9em; }
-.timestamp { text-align: center; color: #555; font-size: 0.75em; padding: 10px; }
-.sentiment { font-size: 0.75em; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--green:#00ff88;--red:#ff4444;--blue:#4488ff;--gold:#ffaa00;--bg:#080810;--card:#0d0d1a;--border:#1a1a2e;--text:#e0e0e0;--muted:#666;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);padding:20px;text-align:center;border-bottom:1px solid var(--green);position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,#00ff8808 0%,transparent 60%);animation:pulse 4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+.header h1{font-size:2em;font-weight:700;color:var(--green);letter-spacing:2px;position:relative;}
+.header p{color:var(--muted);font-size:0.85em;margin-top:5px;position:relative;}
+.live-badge{display:inline-block;background:#00ff8822;color:var(--green);border:1px solid var(--green);padding:2px 10px;border-radius:20px;font-size:0.7em;margin-left:10px;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.5;}}
+
+/* STATS BAR */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border);}
+.stat-item{background:var(--card);padding:15px;text-align:center;}
+.stat-item .val{font-size:1.4em;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.stat-item .lbl{font-size:0.7em;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:1px;}
+.stat-green{color:var(--green);}
+.stat-red{color:var(--red);}
+.stat-blue{color:var(--blue);}
+.stat-gold{color:var(--gold);}
+
+/* WALLETS */
+.section{padding:15px;}
+.section-title{font-size:0.8em;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.wallets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;}
+.wallet-card{background:var(--card);border:1px solid #00ff8822;border-radius:10px;padding:15px;position:relative;overflow:hidden;}
+.wallet-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),transparent);}
+.wallet-addr{font-family:'JetBrains Mono',monospace;font-size:0.75em;color:var(--muted);margin-top:5px;word-break:break-all;}
+.wallet-chain{display:inline-block;background:#00ff8811;color:var(--green);border:1px solid #00ff8833;padding:2px 8px;border-radius:4px;font-size:0.7em;margin-top:5px;}
+.wallet-balance{font-size:1.1em;font-weight:600;color:var(--green);margin-top:8px;}
+
+/* MARKETS */
+.market-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:15px;margin-bottom:10px;transition:all 0.2s;position:relative;overflow:hidden;}
+.market-card:hover{border-color:#00ff8844;transform:translateY(-1px);}
+.market-rank{position:absolute;top:10px;right:12px;font-size:0.7em;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.market-q{font-size:0.9em;font-weight:500;margin-bottom:12px;line-height:1.4;padding-right:30px;}
+.prob-bar{height:8px;background:#1a1a2e;border-radius:4px;overflow:hidden;margin-bottom:10px;}
+.prob-yes{height:100%;border-radius:4px;transition:width 0.5s;background:linear-gradient(90deg,var(--green),#00cc66);}
+.market-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.tag{padding:4px 10px;border-radius:6px;font-size:0.72em;font-weight:500;font-family:'JetBrains Mono',monospace;}
+.tag-yes{background:#00ff8822;color:var(--green);border:1px solid #00ff8844;}
+.tag-no{background:#ff444422;color:var(--red);border:1px solid #ff444444;}
+.tag-vol{background:#4488ff22;color:var(--blue);border:1px solid #4488ff44;}
+.tag-kelly{background:#ffaa0022;color:var(--gold);border:1px solid #ffaa0044;}
+.tag-date{background:#ffffff11;color:var(--muted);border:1px solid #ffffff22;}
+.signal-badge{padding:3px 10px;border-radius:20px;font-size:0.68em;font-weight:600;letter-spacing:0.5px;}
+.HIGH_UNCERTAINTY{background:#ffaa0022;color:var(--gold);border:1px solid #ffaa0044;}
+.LIKELY_YES{background:#00ff8822;color:var(--green);border:1px solid #00ff8844;}
+.LIKELY_NO{background:#ff444422;color:var(--red);border:1px solid #ff444444;}
+.MONITOR{background:#4488ff22;color:var(--blue);border:1px solid #4488ff44;}
+.sentiment{font-size:0.75em;}
+.news-headlines{margin-top:8px;padding:8px;background:#ffffff05;border-radius:6px;border-left:2px solid var(--border);}
+.headline{font-size:0.68em;color:var(--muted);padding:2px 0;line-height:1.3;}
+
+/* TRANSACTIONS */
+.tx-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;}
+.tx-badge{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8em;flex-shrink:0;}
+.tx-yes{background:#00ff8822;color:var(--green);}
+.tx-no{background:#ff444422;color:var(--red);}
+.tx-info{flex:1;}
+.tx-market{font-size:0.78em;color:var(--text);line-height:1.3;}
+.tx-meta{font-size:0.68em;color:var(--muted);margin-top:3px;font-family:'JetBrains Mono',monospace;}
+.tx-amount{text-align:right;flex-shrink:0;}
+.tx-usdc{font-size:0.85em;font-weight:600;color:var(--green);font-family:'JetBrains Mono',monospace;}
+.tx-return{font-size:0.68em;color:var(--muted);}
+.tx-status{font-size:0.62em;background:#4488ff22;color:var(--blue);border:1px solid #4488ff44;padding:2px 6px;border-radius:4px;margin-top:3px;display:inline-block;}
+
+/* BET BUTTON */
+.bet-btn{background:linear-gradient(135deg,var(--green),#00cc66);color:#000;border:none;padding:12px 24px;border-radius:8px;font-weight:700;font-size:0.85em;cursor:pointer;width:100%;margin-top:10px;letter-spacing:1px;transition:all 0.2s;}
+.bet-btn:hover{transform:translateY(-2px);box-shadow:0 5px 20px #00ff8844;}
+.bet-btn:active{transform:translateY(0);}
+.bet-btn:disabled{opacity:0.5;cursor:not-allowed;}
+
+/* FOOTER */
+.footer{text-align:center;padding:20px;color:var(--muted);font-size:0.72em;border-top:1px solid var(--border);}
+.refresh-fab{position:fixed;bottom:20px;right:20px;background:var(--green);color:#000;border:none;width:50px;height:50px;border-radius:50%;cursor:pointer;font-size:1.2em;box-shadow:0 4px 15px #00ff8844;transition:all 0.2s;}
+.refresh-fab:hover{transform:scale(1.1);}
+.loading{display:none;text-align:center;padding:10px;color:var(--green);font-size:0.8em;}
 </style>
 </head>
 <body>
+
 <div class="header">
-  <h1>🏛️ InsightAgent</h1>
-  <p>Polymarket Intelligence — Powered by Circle Arc Testnet</p>
+  <h1>🏛️ InsightAgent <span class="live-badge">● LIVE</span></h1>
+  <p>Polymarket Intelligence — Circle Arc Testnet | Agora Hackathon 2026</p>
 </div>
 
-<div class="wallets">
-  {% for w in wallets %}
-  <div class="wallet-card">
-    <h3>🔑 WALLET {{ loop.index }}</h3>
-    <p>{{ w.address }}</p>
-    <p style="color:#00ff88; margin-top:4px;">{{ w.chain }} — {{ w.state }}</p>
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="val stat-green">{{ stats.total_bets }}</div>
+    <div class="lbl">Total Bets</div>
   </div>
-  {% endfor %}
+  <div class="stat-item">
+    <div class="val stat-blue">${{ stats.total_usdc }}</div>
+    <div class="lbl">USDC Deployed</div>
+  </div>
+  <div class="stat-item">
+    <div class="val {% if stats.pnl >= 0 %}stat-green{% else %}stat-red{% endif %}">${{ stats.pnl }}</div>
+    <div class="lbl">Est. P&L</div>
+  </div>
+  <div class="stat-item">
+    <div class="val stat-gold">{{ markets|length }}</div>
+    <div class="lbl">Markets Live</div>
+  </div>
 </div>
 
-<div class="markets">
-  <h2>📊 Top Markets ({{ markets|length }} found)</h2>
+<!-- WALLETS -->
+<div class="section">
+  <div class="section-title">💳 Arc Testnet Wallets</div>
+  <div class="wallets-grid">
+    {% for w in wallets %}
+    <div class="wallet-card">
+      <div style="font-weight:600;font-size:0.85em;">Wallet {{ loop.index }}</div>
+      <div class="wallet-addr">{{ w.address }}</div>
+      <div style="margin-top:8px;">
+        <span class="wallet-chain">{{ w.chain }}</span>
+        <span class="wallet-chain" style="margin-left:5px;">{{ w.state }}</span>
+      </div>
+      <div class="wallet-balance">{{ w.balance }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  <button class="bet-btn" onclick="placeBet()" id="betBtn">
+    ⚡ AUTO BET — Best Market (1 USDC)
+  </button>
+  <div class="loading" id="loading">🤖 Agent analyzing markets...</div>
+</div>
+
+<!-- MARKETS -->
+<div class="section">
+  <div class="section-title">📊 Top Markets ({{ markets|length }} found)</div>
   {% for m in markets %}
   <div class="market-card">
-    <div class="market-question">{{ m.question }}</div>
-    <div class="bar-container">
-      <div class="bar-yes" style="width: {{ m.yes }}%"></div>
+    <div class="market-rank">#{{ loop.index }}</div>
+    <div class="market-q">{{ m.question }}</div>
+    <div class="prob-bar">
+      <div class="prob-yes" style="width:{{ m.yes }}%"></div>
     </div>
-    <div class="market-stats" style="margin-top:8px;">
-      <span class="stat yes">YES {{ m.yes }}%</span>
-      <span class="stat no">NO {{ m.no }}%</span>
-      <span class="stat vol">VOL ${{ "{:,.0f}".format(m.volume) }}</span>
-      <span class="signal {{ m.signal.replace(' ', '_') }}">{{ m.signal }}</span>
-      <span class="sentiment">{{ m.sentiment }}</span>
-      <span class="stat">Kelly: {{ m.kelly }}%</span>
+    <div class="market-row">
+      <span class="tag tag-yes">YES {{ m.yes }}%</span>
+      <span class="tag tag-no">NO {{ m.no }}%</span>
+      <span class="tag tag-vol">VOL ${{ "{:,.0f}".format(m.volume) }}</span>
+      <span class="signal-badge {{ m.signal.replace(' ','_') }}">{{ m.signal }}</span>
+      <span class="sentiment">{{ m.news.sentiment }}</span>
+      <span class="tag tag-kelly">Kelly {{ m.kelly }}%</span>
+      <span class="tag tag-date">{{ m.end_date }}</span>
     </div>
+    {% if m.news.headlines %}
+    <div class="news-headlines">
+      {% for h in m.news.headlines %}
+      <div class="headline">📰 {{ h }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
   </div>
   {% endfor %}
 </div>
 
-<div class="markets">
-  <h2>💸 Transaction History ({{ transactions|length }})</h2>
+<!-- TRANSACTIONS -->
+<div class="section">
+  <div class="section-title">💸 Transaction History ({{ transactions|length }})</div>
   {% if transactions %}
   {% for tx in transactions %}
-  <div class="market-card">
-    <div class="market-question">{{ tx.market }}</div>
-    <div class="market-stats">
-      <span class="stat {% if tx.position == 'YES' %}yes{% else %}no{% endif %}">{{ tx.position }}</span>
-      <span class="stat">@ {{ tx.price }}%</span>
-      <span class="stat vol">${{ tx.amount_usdc }} USDC</span>
-      <span class="stat yes">Return: ${{ tx.potential_return }}</span>
-      <span class="stat">{{ tx.chain }}</span>
-      <span class="stat">{{ tx.timestamp }}</span>
-      <span class="signal MONITOR">{{ tx.status }}</span>
+  <div class="tx-card">
+    <div class="tx-badge {% if tx.position == 'YES' %}tx-yes{% else %}tx-no{% endif %}">
+      {{ tx.position }}
+    </div>
+    <div class="tx-info">
+      <div class="tx-market">{{ tx.market }}</div>
+      <div class="tx-meta">{{ tx.chain }} · {{ tx.wallet }} · {{ tx.timestamp }}</div>
+      <span class="tx-status">{{ tx.status }}</span>
+    </div>
+    <div class="tx-amount">
+      <div class="tx-usdc">${{ tx.amount_usdc }} USDC</div>
+      <div class="tx-return">→ ${{ tx.potential_return }}</div>
     </div>
   </div>
   {% endfor %}
   {% else %}
-  <p style="color:#555; padding:10px;">No transactions yet.</p>
+  <div style="color:var(--muted);font-size:0.8em;padding:20px;text-align:center;">No transactions yet. Click AUTO BET to start.</div>
   {% endif %}
 </div>
 
-<div class="timestamp">Last updated: {{ timestamp }}</div>
-<button class="refresh-btn" onclick="location.reload()">🔄 Refresh</button>
+<div class="footer">
+  Last updated: {{ timestamp }} · Auto-refresh every 5 min · Built for Agora Hackathon 2026
+</div>
+
+<button class="refresh-fab" onclick="location.reload()">🔄</button>
+
+<script>
+async function placeBet() {
+  const btn = document.getElementById('betBtn');
+  const loading = document.getElementById('loading');
+  btn.disabled = true;
+  btn.textContent = '⏳ Processing...';
+  loading.style.display = 'block';
+  try {
+    const res = await fetch('/api/bet', {method: 'POST'});
+    const data = await res.json();
+    if (data.success) {
+      btn.textContent = '✅ Bet Placed! Refreshing...';
+      setTimeout(() => location.reload(), 1500);
+    } else {
+      btn.textContent = '❌ ' + (data.error || 'Error');
+      btn.disabled = false;
+      loading.style.display = 'none';
+    }
+  } catch(e) {
+    btn.textContent = '❌ Connection Error';
+    btn.disabled = false;
+    loading.style.display = 'none';
+  }
+}
+</script>
 </body>
 </html>
