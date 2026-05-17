@@ -69,3 +69,28 @@ def get_stats():
             "yes_bets": 0,
             "no_bets": 0
         }
+
+def get_onchain_transactions(wallet_id, limit=5):
+    """Fetch real on-chain transactions dari Circle API"""
+    try:
+        response = requests.get(
+            f"{BASE_URL}/transactions?walletIds={wallet_id}&pageSize={limit}",
+            headers=get_headers(),
+            timeout=5
+        )
+        data = response.json()
+        txs = data.get("data", {}).get("transactions", [])
+        result = []
+        for tx in txs:
+            result.append({
+                "id": tx.get("id", "")[:16],
+                "state": tx.get("state", ""),
+                "amount": tx.get("amounts", ["?"])[0] if tx.get("amounts") else "?",
+                "type": tx.get("transactionType", ""),
+                "chain": tx.get("blockchain", "ARC-TESTNET"),
+                "timestamp": tx.get("createDate", "")[:19].replace("T", " "),
+                "tx_hash": tx.get("txHash", "")
+            })
+        return result
+    except:
+        return []

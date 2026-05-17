@@ -70,7 +70,7 @@ def run():
     if not wallets:
         print("❌ No wallet found")
         return
-    wallet = wallets[0]
+    wallet = wallets[1] if len(wallets) > 1 else wallets[0]
     print(f"✅ {wallet['short']} ({wallet['chain']})")
 
     print("\n⛽ Sponsoring gas via Paymaster...")

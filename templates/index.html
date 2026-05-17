@@ -439,6 +439,28 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
     </div>
   </div>
 
+  
+  <div class="sbox" style="border-color:var(--accent-dim);">
+    <div class="sbox-head"><span class="sbox-title">⛓️ On-Chain Txs</span><span class="sbox-meta">Arc Testnet</span></div>
+    {% if onchain_txs %}
+    {% for tx in onchain_txs %}
+    <div class="tx-item">
+      <div class="tx-pos pos-y" style="font-size:0.5em;">✓</div>
+      <div class="tx-body">
+        <div class="tx-mkt">{{ tx.type or "TRANSFER" }} · {{ tx.amount }} USDC</div>
+        <div class="tx-sub">{{ tx.chain }} · {{ tx.timestamp }}</div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt" style="color:var(--accent);">{{ tx.state }}</div>
+        <div class="tx-ret">{{ tx.id }}...</div>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="empty">No on-chain transactions</div>
+    {% endif %}
+  </div>
+
   <div class="sbox">
     <div class="sbox-head"><span class="sbox-title">Recent Activity</span><span class="sbox-meta">{{ transactions|length }} total</span></div>
     {% if transactions %}
