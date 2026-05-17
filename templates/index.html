@@ -620,8 +620,8 @@ if (txData.length) {
   const vals = txData.slice().reverse().map(t => { cum += parseFloat(t.profit||0); return parseFloat(cum.toFixed(2)); });
   new Chart(document.getElementById('pnlChart').getContext('2d'), {
     type:'line',
-    data:{labels,datasets:[{data:vals,borderColor:'var(--accent)',backgroundColor:'rgba(0,232,122,0.04)',borderWidth:1.5,fill:true,tension:0.4,pointRadius:2,pointBackgroundColor:'var(--accent)'}]},
-    options:{responsive:true,plugins:{legend:{display:false},tooltip:{backgroundColor:'var(--surface)',borderColor:'var(--border)',borderWidth:1,titleColor:'var(--text)',bodyColor:'var(--sub)',callbacks:{label:c=>' $'+c.raw}}},scales:{x:{ticks:{color:'var(--sub)',font:{size:9}},grid:{color:'var(--border)'}},y:{ticks:{color:'var(--sub)',font:{size:9},callback:v=>'$'+v},grid:{color:'var(--border)'}}}}
+    data:{labels,datasets:[{data:vals,borderColor:'#00e87a',backgroundColor:'rgba(0,232,122,0.08)',borderWidth:1.5,fill:true,tension:0.4,pointRadius:2,pointBackgroundColor:'#00e87a'}]},
+    options:{responsive:true,plugins:{legend:{display:false},tooltip:{backgroundColor:'#0f0f1a',borderColor:'#1e1e30',borderWidth:1,titleColor:'#e8e8f0',bodyColor:'#6b6b80',callbacks:{label:c=>' $'+c.raw}}},scales:{x:{ticks:{color:'#6b6b80',font:{size:9}},grid:{color:'#1e1e30'}},y:{ticks:{color:'#6b6b80',font:{size:9},callback:v=>'$'+v},grid:{color:'#1e1e30'}}}}
   });
 }
 {% endif %}
