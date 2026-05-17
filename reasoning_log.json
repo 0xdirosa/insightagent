@@ -1,5 +1,378 @@
 [
   {
+    "timestamp": "2026-05-17 05:30:02",
+    "market": "Will the Oklahoma City Thunder win the 2026 NBA Finals?",
+    "signal": "MONITOR",
+    "position": "YES",
+    "confidence": "HIGH",
+    "yes_price": 58.5,
+    "no_price": 41.5,
+    "volume": 11862612.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 10,
+    "reasons": [
+      "High liquidity market ($11,862,612 volume) \u2014 low slippage risk",
+      "Moderate probability (58.5% Yes) \u2014 monitor for movement",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 10% bankroll allocation \u2014 moderate position size",
+      "Buying YES at 58.5\u00a2 \u2014 implied probability may be undervalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-17 05:00:02",
+    "market": "Will bitcoin hit $1m before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "NO",
+    "confidence": "MEDIUM",
+    "yes_price": 48.8,
+    "no_price": 51.2,
+    "volume": 4162021.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 9.8,
+    "reasons": [
+      "Good liquidity ($4,162,021 volume)",
+      "Market is near 50/50 (48.8% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 9.8% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying NO at 51.2\u00a2 \u2014 implied probability may be overvalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-17 04:30:02",
+    "market": "Will Jesus Christ return before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "NO",
+    "confidence": "HIGH",
+    "yes_price": 48.5,
+    "no_price": 51.5,
+    "volume": 11376031.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 9.7,
+    "reasons": [
+      "High liquidity market ($11,376,031 volume) \u2014 low slippage risk",
+      "Market is near 50/50 (48.5% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 9.7% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying NO at 51.5\u00a2 \u2014 implied probability may be overvalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-17 04:00:02",
+    "market": "Will China invades Taiwan before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "YES",
+    "confidence": "MEDIUM",
+    "yes_price": 50.5,
+    "no_price": 49.5,
+    "volume": 1826887.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 10,
+    "reasons": [
+      "Good liquidity ($1,826,887 volume)",
+      "Market is near 50/50 (50.5% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 10% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying YES at 50.5\u00a2 \u2014 implied probability may be undervalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-17 03:30:01",
+    "market": "Will the Oklahoma City Thunder win the 2026 NBA Finals?",
+    "signal": "MONITOR",
+    "position": "YES",
+    "confidence": "HIGH",
+    "yes_price": 58.5,
+    "no_price": 41.5,
+    "volume": 11861742.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 10,
+    "reasons": [
+      "High liquidity market ($11,861,742 volume) \u2014 low slippage risk",
+      "Moderate probability (58.5% Yes) \u2014 monitor for movement",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 10% bankroll allocation \u2014 moderate position size",
+      "Buying YES at 58.5\u00a2 \u2014 implied probability may be undervalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-17 03:00:02",
+    "market": "Will bitcoin hit $1m before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "NO",
+    "confidence": "MEDIUM",
+    "yes_price": 48.8,
+    "no_price": 51.2,
+    "volume": 4161950.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 9.8,
+    "reasons": [
+      "Good liquidity ($4,161,950 volume)",
+      "Market is near 50/50 (48.8% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 9.8% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying NO at 51.2\u00a2 \u2014 implied probability may be overvalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-17 02:30:01",
+    "market": "Will Jesus Christ return before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "NO",
+    "confidence": "HIGH",
+    "yes_price": 48.5,
+    "no_price": 51.5,
+    "volume": 11375981.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 9.7,
+    "reasons": [
+      "High liquidity market ($11,375,981 volume) \u2014 low slippage risk",
+      "Market is near 50/50 (48.5% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 9.7% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying NO at 51.5\u00a2 \u2014 implied probability may be overvalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-17 02:00:02",
+    "market": "Will China invades Taiwan before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "YES",
+    "confidence": "MEDIUM",
+    "yes_price": 50.5,
+    "no_price": 49.5,
+    "volume": 1826887.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 10,
+    "reasons": [
+      "Good liquidity ($1,826,887 volume)",
+      "Market is near 50/50 (50.5% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 10% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying YES at 50.5\u00a2 \u2014 implied probability may be undervalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-17 01:30:03",
+    "market": "Will the Oklahoma City Thunder win the 2026 NBA Finals?",
+    "signal": "MONITOR",
+    "position": "YES",
+    "confidence": "HIGH",
+    "yes_price": 58.5,
+    "no_price": 41.5,
+    "volume": 11852725.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 10,
+    "reasons": [
+      "High liquidity market ($11,852,725 volume) \u2014 low slippage risk",
+      "Moderate probability (58.5% Yes) \u2014 monitor for movement",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 10% bankroll allocation \u2014 moderate position size",
+      "Buying YES at 58.5\u00a2 \u2014 implied probability may be undervalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-17 01:00:02",
+    "market": "Will bitcoin hit $1m before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "NO",
+    "confidence": "MEDIUM",
+    "yes_price": 48.8,
+    "no_price": 51.2,
+    "volume": 4161950.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 9.8,
+    "reasons": [
+      "Good liquidity ($4,161,950 volume)",
+      "Market is near 50/50 (48.8% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 9.8% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying NO at 51.2\u00a2 \u2014 implied probability may be overvalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-17 00:30:02",
+    "market": "Will Jesus Christ return before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "NO",
+    "confidence": "HIGH",
+    "yes_price": 48.5,
+    "no_price": 51.5,
+    "volume": 11375878.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 9.7,
+    "reasons": [
+      "High liquidity market ($11,375,878 volume) \u2014 low slippage risk",
+      "Market is near 50/50 (48.5% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 9.7% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying NO at 51.5\u00a2 \u2014 implied probability may be overvalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-17 00:21:30",
+    "market": "Will China invades Taiwan before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "YES",
+    "confidence": "MEDIUM",
+    "yes_price": 50.5,
+    "no_price": 49.5,
+    "volume": 1826871.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 10,
+    "reasons": [
+      "Good liquidity ($1,826,871 volume)",
+      "Market is near 50/50 (50.5% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 10% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying YES at 50.5\u00a2 \u2014 implied probability may be undervalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-17 00:00:02",
+    "market": "Will the Oklahoma City Thunder win the 2026 NBA Finals?",
+    "signal": "MONITOR",
+    "position": "YES",
+    "confidence": "HIGH",
+    "yes_price": 58.5,
+    "no_price": 41.5,
+    "volume": 11852155.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 10,
+    "reasons": [
+      "High liquidity market ($11,852,155 volume) \u2014 low slippage risk",
+      "Moderate probability (58.5% Yes) \u2014 monitor for movement",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 10% bankroll allocation \u2014 moderate position size",
+      "Buying YES at 58.5\u00a2 \u2014 implied probability may be undervalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-16 23:43:22",
+    "market": "Will bitcoin hit $1m before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "NO",
+    "confidence": "MEDIUM",
+    "yes_price": 48.8,
+    "no_price": 51.2,
+    "volume": 4161911.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 9.8,
+    "reasons": [
+      "Good liquidity ($4,161,911 volume)",
+      "Market is near 50/50 (48.8% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 9.8% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying NO at 51.2\u00a2 \u2014 implied probability may be overvalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-16 23:42:54",
+    "market": "Will Jesus Christ return before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "NO",
+    "confidence": "HIGH",
+    "yes_price": 48.5,
+    "no_price": 51.5,
+    "volume": 11375878.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 9.7,
+    "reasons": [
+      "High liquidity market ($11,375,878 volume) \u2014 low slippage risk",
+      "Market is near 50/50 (48.5% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 9.7% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying NO at 51.5\u00a2 \u2014 implied probability may be overvalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-16 23:42:46",
+    "market": "Will China invades Taiwan before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "YES",
+    "confidence": "MEDIUM",
+    "yes_price": 50.5,
+    "no_price": 49.5,
+    "volume": 1826871.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 10,
+    "reasons": [
+      "Good liquidity ($1,826,871 volume)",
+      "Market is near 50/50 (50.5% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 10% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying YES at 50.5\u00a2 \u2014 implied probability may be undervalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-16 23:42:15",
+    "market": "Will the Oklahoma City Thunder win the 2026 NBA Finals?",
+    "signal": "MONITOR",
+    "position": "YES",
+    "confidence": "HIGH",
+    "yes_price": 58.5,
+    "no_price": 41.5,
+    "volume": 11852155.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 10,
+    "reasons": [
+      "High liquidity market ($11,852,155 volume) \u2014 low slippage risk",
+      "Moderate probability (58.5% Yes) \u2014 monitor for movement",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 10% bankroll allocation \u2014 moderate position size",
+      "Buying YES at 58.5\u00a2 \u2014 implied probability may be undervalued"
+    ],
+    "news_count": 0
+  },
+  {
+    "timestamp": "2026-05-16 23:30:01",
+    "market": "Will bitcoin hit $1m before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "NO",
+    "confidence": "MEDIUM",
+    "yes_price": 48.8,
+    "no_price": 51.2,
+    "volume": 4161911.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 9.8,
+    "reasons": [
+      "Good liquidity ($4,161,911 volume)",
+      "Market is near 50/50 (48.8% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 9.8% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying NO at 51.2\u00a2 \u2014 implied probability may be overvalued"
+    ],
+    "news_count": 0
+  },
+  {
     "timestamp": "2026-05-16 23:20:31",
     "market": "Will Jesus Christ return before GTA VI?",
     "signal": "HIGH UNCERTAINTY",

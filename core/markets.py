@@ -76,3 +76,29 @@ def analyze_markets_parallel(markets, analyze_fn, max_workers=5):
             except:
                 results[idx] = {**markets[idx], "news": {"sentiment": "🟡 NEUTRAL", "score": 0, "count": 0, "headlines": []}, "signal": get_signal(markets[idx]['yes']), "kelly": kelly_size(markets[idx]['yes'])}
     return [r for r in results if r]
+
+CATEGORIES = {
+    "crypto": ["bitcoin", "btc", "eth", "ethereum", "crypto", "usdc", "solana", "token", "blockchain", "web3", "defi", "nft", "megaeth"],
+    "sports": ["nba", "nhl", "nfl", "mlb", "finals", "cup", "champion", "spurs", "thunder", "cavaliers", "avalanche", "hurricanes"],
+    "politics": ["trump", "president", "election", "senate", "congress", "vote", "democrat", "republican", "biden", "war", "china", "taiwan"],
+    "entertainment": ["gta", "rihanna", "carti", "album", "movie", "music", "celebrity", "kardashian"],
+    "world": ["jesus", "christ", "religious", "invasion", "nuclear", "conflict", "peace"]
+}
+
+def get_category(question):
+    q = question.lower()
+    for cat, keywords in CATEGORIES.items():
+        if any(kw in q for kw in keywords):
+            return cat
+    return "other"
+
+def get_category_emoji(cat):
+    emojis = {
+        "crypto": "₿",
+        "sports": "🏆",
+        "politics": "🏛️",
+        "entertainment": "🎬",
+        "world": "🌍",
+        "other": "📊"
+    }
+    return emojis.get(cat, "📊")
