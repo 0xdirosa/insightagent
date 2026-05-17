@@ -4,276 +4,274 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="refresh" content="300">
-<title>InsightAgent</title>
+<title>InsightAgent — Polymarket Intelligence</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
-
-/* THEME */
+:root{--trans:0.2s;}
 [data-theme="dark"]{
   --bg:#08080f;--surface:#0f0f1a;--surface2:#141422;--border:#1e1e30;
-  --text:#e8e8f0;--sub:#6b6b80;--muted:#3d3d50;
-  --accent:#00e87a;--accent-dim:#00e87a15;
-  --danger:#ff4757;--danger-dim:#ff475715;
-  --info:#4dabf7;--info-dim:#4dabf715;
-  --warn:#ffd43b;--warn-dim:#ffd43b15;
+  --text:#e8e8f0;--sub:#6b6b80;--muted:#2a2a3a;
+  --accent:#00e87a;--accent-dim:#00e87a12;
+  --danger:#ff4757;--danger-dim:#ff475712;
+  --info:#4dabf7;--info-dim:#4dabf712;
+  --warn:#ffd43b;--warn-dim:#ffd43b12;
 }
 [data-theme="light"]{
   --bg:#f5f5f7;--surface:#ffffff;--surface2:#f0f0f5;--border:#e0e0e8;
-  --text:#1a1a2e;--sub:#6b6b80;--muted:#c0c0d0;
-  --accent:#00aa55;--accent-dim:#00aa5515;
-  --danger:#e03131;--danger-dim:#e0313115;
-  --info:#1971c2;--info-dim:#1971c215;
-  --warn:#e67700;--warn-dim:#e6770015;
+  --text:#1a1a2e;--sub:#6b6b80;--muted:#d0d0e0;
+  --accent:#00aa55;--accent-dim:#00aa5512;
+  --danger:#e03131;--danger-dim:#e0313112;
+  --info:#1971c2;--info-dim:#1971c212;
+  --warn:#e67700;--warn-dim:#e6770012;
 }
-
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;transition:background 0.2s,color 0.2s;}
-::-webkit-scrollbar{width:4px;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;transition:background var(--trans),color var(--trans);}
+::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+
+/* OVERLAY */
+.overlay{display:none;position:fixed;inset:0;background:#00000077;z-index:99;}
+.overlay.show{display:block;}
 
 /* LAYOUT */
 .layout{display:flex;min-height:100vh;}
 
 /* SIDEBAR */
-.sidebar{width:220px;background:var(--surface);border-right:1px solid var(--border);padding:20px 0;position:fixed;height:100vh;overflow-y:auto;z-index:100;display:flex;flex-direction:column;transition:background 0.2s;}
-.logo{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:12px;}
-.logo-name{font-size:0.9em;font-weight:700;}
-.logo-sub{font-size:0.62em;color:var(--sub);margin-top:2px;}
-.live-pill{display:inline-flex;align-items:center;gap:4px;background:var(--accent-dim);color:var(--accent);padding:2px 8px;border-radius:20px;font-size:0.6em;font-weight:600;margin-top:6px;border:1px solid var(--accent-dim);}
-.live-dot{width:5px;height:5px;background:var(--accent);border-radius:50%;animation:pulse 1.5s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-
-.nav-label{font-size:0.58em;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;padding:10px 20px 4px;}
-.nav-item{display:flex;align-items:center;gap:8px;padding:8px 20px;cursor:pointer;transition:all 0.15s;font-size:0.78em;color:var(--sub);}
+.sidebar{width:220px;background:var(--surface);border-right:1px solid var(--border);padding:20px 0;position:fixed;height:100vh;overflow-y:auto;z-index:100;display:flex;flex-direction:column;transition:transform 0.25s,background var(--trans);}
+.logo{padding:0 20px 18px;border-bottom:1px solid var(--border);margin-bottom:12px;}
+.logo-name{font-size:0.88em;font-weight:700;}
+.logo-sub{font-size:0.6em;color:var(--sub);margin-top:2px;}
+.live-pill{display:inline-flex;align-items:center;gap:4px;background:var(--accent-dim);color:var(--accent);padding:2px 7px;border-radius:20px;font-size:0.58em;font-weight:600;margin-top:5px;border:1px solid var(--accent-dim);}
+.live-dot{width:4px;height:4px;background:var(--accent);border-radius:50%;animation:p 1.5s infinite;}
+@keyframes p{0%,100%{opacity:1;}50%{opacity:0.2;}}
+.nav-label{font-size:0.56em;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;padding:10px 20px 3px;}
+.nav-item{display:flex;align-items:center;gap:8px;padding:7px 20px;cursor:pointer;transition:all 0.1s;font-size:0.76em;color:var(--sub);}
 .nav-item:hover{background:var(--surface2);color:var(--text);}
 .nav-item.active{background:var(--accent-dim);color:var(--accent);font-weight:500;}
-.nav-icon{font-size:0.9em;width:16px;text-align:center;}
-.nav-badge{margin-left:auto;background:var(--surface2);color:var(--sub);padding:1px 6px;border-radius:8px;font-size:0.68em;font-family:'JetBrains Mono',monospace;border:1px solid var(--border);}
-
-.sidebar-bottom{margin-top:auto;padding:16px 20px;border-top:1px solid var(--border);}
-.sb-stat{display:flex;justify-content:space-between;padding:4px 0;font-size:0.7em;}
+.nav-icon{font-size:0.85em;width:14px;text-align:center;}
+.nav-badge{margin-left:auto;background:var(--surface2);color:var(--sub);padding:1px 5px;border-radius:8px;font-size:0.65em;font-family:'JetBrains Mono',monospace;border:1px solid var(--border);}
+.sidebar-bottom{margin-top:auto;padding:14px 20px;border-top:1px solid var(--border);}
+.sb-stat{display:flex;justify-content:space-between;padding:3px 0;font-size:0.68em;}
 .sb-lbl{color:var(--sub);}
 .sb-val{font-family:'JetBrains Mono',monospace;font-weight:500;}
 
 /* MAIN */
-.main{margin-left:220px;flex:1;display:flex;flex-direction:column;}
+.main{margin-left:220px;flex:1;display:flex;flex-direction:column;min-width:0;}
 
 /* TOPBAR */
-.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;transition:background 0.2s;}
-.page-title{font-size:0.88em;font-weight:600;}
-.page-sub{font-size:0.68em;color:var(--sub);margin-top:1px;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;transition:background var(--trans);}
+.topbar-left{display:flex;align-items:center;gap:10px;}
+.hamburger{display:none;background:none;border:1px solid var(--border);color:var(--text);padding:4px 9px;border-radius:6px;cursor:pointer;font-size:0.9em;transition:all 0.1s;}
+.hamburger:hover{border-color:var(--accent);color:var(--accent);}
+.page-title{font-size:0.85em;font-weight:600;}
+.page-sub{font-size:0.65em;color:var(--sub);margin-top:1px;}
 .topbar-right{display:flex;align-items:center;gap:8px;}
-
-/* THEME TOGGLE */
-.theme-toggle{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
-.theme-btn{padding:5px 10px;font-size:0.7em;cursor:pointer;color:var(--sub);border:none;background:transparent;font-family:'Inter',sans-serif;transition:all 0.15s;}
+.theme-toggle{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:7px;overflow:hidden;}
+.theme-btn{padding:4px 9px;font-size:0.68em;cursor:pointer;color:var(--sub);border:none;background:transparent;font-family:'Inter',sans-serif;transition:all 0.1s;}
 .theme-btn.active{background:var(--accent-dim);color:var(--accent);}
-.theme-btn:hover:not(.active){color:var(--text);}
-
-/* WALLET BTN */
-.wallet-btn{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:8px;font-size:0.72em;font-weight:500;cursor:pointer;transition:all 0.15s;font-family:'Inter',sans-serif;}
+.wallet-btn{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:5px 11px;border-radius:7px;font-size:0.7em;font-weight:500;cursor:pointer;transition:all 0.1s;font-family:'Inter',sans-serif;}
 .wallet-btn:hover{border-color:var(--info);color:var(--info);}
 .wallet-btn.connected{border-color:var(--accent);color:var(--accent);background:var(--accent-dim);}
-.avatar{width:26px;height:26px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.65em;font-weight:700;}
+.avatar{width:24px;height:24px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.6em;font-weight:700;}
 
 /* CONTENT */
-.content{padding:20px 24px;flex:1;}
+.content{padding:18px 20px;flex:1;}
+
+/* PITCH BANNER */
+.pitch{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.pitch-left h2{font-size:0.88em;font-weight:600;margin-bottom:4px;}
+.pitch-left p{font-size:0.72em;color:var(--sub);line-height:1.5;max-width:500px;}
+.pitch-tags{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
+.ptag{font-size:0.6em;padding:2px 8px;border-radius:4px;border:1px solid var(--border);color:var(--sub);background:var(--surface2);}
+.pitch-right{text-align:right;flex-shrink:0;}
+.pitch-right .big{font-size:1.8em;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--accent);}
+.pitch-right .small{font-size:0.62em;color:var(--sub);}
 
 /* STATS */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;transition:background 0.2s;}
-.stat-label{font-size:0.62em;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
-.stat-value{font-size:1.5em;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--text);}
-.stat-meta{font-size:0.65em;color:var(--sub);margin-top:5px;}
-.stat-up{color:var(--accent);}
-.stat-dn{color:var(--danger);}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;transition:background var(--trans);}
+.stat-label{font-size:0.6em;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.stat-value{font-size:1.4em;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--text);}
+.stat-meta{font-size:0.62em;color:var(--sub);margin-top:4px;}
+.sup{color:var(--accent);}
+.sdn{color:var(--danger);}
 
 /* GRID */
-.grid-2{display:grid;grid-template-columns:1fr 300px;gap:16px;}
+.grid-2{display:grid;grid-template-columns:1fr 290px;gap:14px;}
 
-/* SECTION BOX */
-.sbox{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px;transition:background 0.2s;}
-.sbox-head{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.sbox-title{font-size:0.78em;font-weight:600;}
-.sbox-meta{font-size:0.65em;color:var(--sub);}
+/* SBOX */
+.sbox{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;transition:background var(--trans);}
+.sbox-head{padding:11px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.sbox-title{font-size:0.76em;font-weight:600;}
+.sbox-meta{font-size:0.62em;color:var(--sub);}
 
 /* CAT TABS */
-.cat-tabs{display:flex;gap:4px;padding:10px 16px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.cat-tabs{display:flex;gap:4px;padding:9px 14px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
 .cat-tabs::-webkit-scrollbar{display:none;}
-.cat-tab{padding:4px 10px;border-radius:6px;font-size:0.68em;font-weight:500;cursor:pointer;transition:all 0.15s;white-space:nowrap;border:1px solid transparent;color:var(--sub);}
+.cat-tab{padding:3px 9px;border-radius:5px;font-size:0.65em;font-weight:500;cursor:pointer;transition:all 0.1s;white-space:nowrap;border:1px solid transparent;color:var(--sub);}
 .cat-tab:hover{color:var(--text);border-color:var(--border);}
 .cat-tab.active{background:var(--accent-dim);color:var(--accent);border-color:var(--accent-dim);}
 
-/* MARKET ITEM */
-.mi{padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.1s;}
+/* MARKET */
+.mi{padding:11px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.1s;}
 .mi:last-child{border-bottom:none;}
 .mi:hover{background:var(--surface2);}
-.mi-top{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;}
-.mi-icon{width:24px;height:24px;border-radius:5px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.75em;flex-shrink:0;}
-.mi-q{font-size:0.8em;font-weight:500;line-height:1.4;flex:1;color:var(--text);}
-.mi-num{font-size:0.6em;color:var(--muted);font-family:'JetBrains Mono',monospace;flex-shrink:0;margin-top:2px;}
-.mi-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:8px;}
+.mi-top{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;}
+.mi-icon{width:22px;height:22px;border-radius:4px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.72em;flex-shrink:0;}
+.mi-q{font-size:0.78em;font-weight:500;line-height:1.4;flex:1;}
+.mi-num{font-size:0.58em;color:var(--muted);font-family:'JetBrains Mono',monospace;flex-shrink:0;margin-top:2px;}
+.mi-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:7px;}
 .mi-yes{height:100%;background:var(--accent);border-radius:2px;}
-.mi-tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
-.tag{padding:2px 6px;border-radius:4px;font-size:0.62em;font-family:'JetBrains Mono',monospace;border:1px solid var(--border);color:var(--sub);background:var(--surface2);}
-.sig{padding:2px 7px;border-radius:4px;font-size:0.6em;font-weight:600;letter-spacing:0.3px;}
+.mi-tags{display:flex;gap:4px;flex-wrap:wrap;align-items:center;}
+.tag{padding:2px 6px;border-radius:3px;font-size:0.6em;font-family:'JetBrains Mono',monospace;border:1px solid var(--border);color:var(--sub);background:var(--surface2);}
+.sig{padding:2px 6px;border-radius:3px;font-size:0.58em;font-weight:700;}
 .HIGH_UNCERTAINTY{background:var(--warn-dim);color:var(--warn);}
 .LIKELY_YES{background:var(--accent-dim);color:var(--accent);}
 .LIKELY_NO{background:var(--danger-dim);color:var(--danger);}
 .MONITOR{background:var(--info-dim);color:var(--info);}
-.mi-detail{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+.mi-detail{display:none;margin-top:9px;padding-top:9px;border-top:1px solid var(--border);}
 .mi-detail.open{display:block;}
-.hl{font-size:0.67em;color:var(--sub);padding:5px 8px;background:var(--surface2);border-radius:5px;line-height:1.3;margin-bottom:3px;}
+.hl{font-size:0.65em;color:var(--sub);padding:4px 7px;background:var(--surface2);border-radius:4px;line-height:1.3;margin-bottom:3px;}
 
 /* RIGHT */
-.right-panel{display:flex;flex-direction:column;gap:14px;}
+.right-panel{display:flex;flex-direction:column;gap:12px;}
 
 /* PROFILE */
-.profile-head{padding:20px 16px;text-align:center;border-bottom:1px solid var(--border);}
-.profile-av{width:44px;height:44px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1em;font-weight:700;margin:0 auto 8px;}
-.profile-name{font-size:0.8em;font-weight:600;}
-.profile-addr{font-size:0.6em;color:var(--sub);font-family:'JetBrains Mono',monospace;margin-top:2px;}
+.profile-head{padding:18px 14px;text-align:center;border-bottom:1px solid var(--border);}
+.profile-av{width:40px;height:40px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.9em;font-weight:700;margin:0 auto 7px;}
+.profile-name{font-size:0.78em;font-weight:600;}
+.profile-addr{font-size:0.58em;color:var(--sub);font-family:'JetBrains Mono',monospace;margin-top:2px;}
 .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
-.pg-item{background:var(--surface);padding:10px;text-align:center;}
-.pg-val{font-size:0.9em;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--text);}
-.pg-lbl{font-size:0.58em;color:var(--sub);margin-top:2px;}
-.profile-empty{padding:20px 16px;text-align:center;}
-.profile-empty p{font-size:0.72em;color:var(--sub);margin-bottom:12px;line-height:1.5;}
+.pg-item{background:var(--surface);padding:9px;text-align:center;}
+.pg-val{font-size:0.88em;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.pg-lbl{font-size:0.57em;color:var(--sub);margin-top:2px;}
+.profile-empty{padding:18px 14px;text-align:center;}
+.profile-empty p{font-size:0.7em;color:var(--sub);margin-bottom:10px;line-height:1.5;}
+.conn-btn{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:7px;border-radius:7px;font-size:0.7em;cursor:pointer;transition:all 0.1s;font-family:'Inter',sans-serif;}
+.conn-btn:hover{border-color:var(--info);color:var(--info);}
 
-/* WALLET CARD */
-.wc-item{padding:10px 16px;border-bottom:1px solid var(--border);}
+/* WALLET */
+.wc-item{padding:9px 14px;border-bottom:1px solid var(--border);}
 .wc-item:last-child{border-bottom:none;}
-.wc-addr{font-family:'JetBrains Mono',monospace;font-size:0.62em;color:var(--sub);margin-bottom:3px;}
-.wc-bal{font-size:0.95em;font-weight:600;color:var(--text);}
-.wc-meta{font-size:0.6em;color:var(--sub);margin-top:2px;}
+.wc-addr{font-family:'JetBrains Mono',monospace;font-size:0.6em;color:var(--sub);margin-bottom:2px;}
+.wc-bal{font-size:0.9em;font-weight:600;}
+.wc-meta{font-size:0.58em;color:var(--sub);margin-top:1px;}
 
 /* BET */
-.bet-body{padding:14px 16px;}
-.bet-btn{width:100%;background:var(--accent);color:#000;border:none;padding:9px;border-radius:8px;font-weight:600;font-size:0.78em;cursor:pointer;transition:all 0.15s;font-family:'Inter',sans-serif;}
-.bet-btn:hover{opacity:0.9;transform:translateY(-1px);}
-.bet-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
-.bet-status{font-size:0.65em;color:var(--sub);margin-top:8px;min-height:14px;line-height:1.4;}
+.bet-body{padding:12px 14px;}
+.bet-btn{width:100%;background:var(--accent);color:#000;border:none;padding:8px;border-radius:7px;font-weight:600;font-size:0.76em;cursor:pointer;transition:all 0.1s;font-family:'Inter',sans-serif;}
+.bet-btn:hover{opacity:0.9;}
+.bet-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.bet-status{font-size:0.63em;color:var(--sub);margin-top:6px;line-height:1.4;}
 .bet-ok{color:var(--accent);}
 .bet-err{color:var(--danger);}
 
-/* CONNECT BTN */
-.conn-btn{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px;border-radius:8px;font-size:0.72em;cursor:pointer;transition:all 0.15s;font-family:'Inter',sans-serif;}
-.conn-btn:hover{border-color:var(--info);color:var(--info);}
-
 /* TX */
-.tx-item{padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.tx-item{padding:9px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px;}
 .tx-item:last-child{border-bottom:none;}
-.tx-pos{width:28px;height:28px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:0.65em;font-weight:700;flex-shrink:0;font-family:'JetBrains Mono',monospace;}
+.tx-pos{width:26px;height:26px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:0.62em;font-weight:700;flex-shrink:0;}
 .pos-y{background:var(--accent-dim);color:var(--accent);}
 .pos-n{background:var(--danger-dim);color:var(--danger);}
 .tx-body{flex:1;min-width:0;}
-.tx-mkt{font-size:0.73em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text);}
-.tx-sub{font-size:0.6em;color:var(--sub);margin-top:1px;}
+.tx-mkt{font-size:0.71em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tx-sub{font-size:0.58em;color:var(--sub);margin-top:1px;}
 .tx-right{text-align:right;flex-shrink:0;}
-.tx-amt{font-size:0.75em;font-weight:600;font-family:'JetBrains Mono',monospace;color:var(--text);}
-.tx-ret{font-size:0.6em;color:var(--sub);}
+.tx-amt{font-size:0.72em;font-weight:600;font-family:'JetBrains Mono',monospace;}
+.tx-ret{font-size:0.58em;color:var(--sub);}
 
 /* REASONING */
-.ri-item{padding:10px 16px;border-bottom:1px solid var(--border);cursor:pointer;}
+.ri-item{padding:9px 14px;border-bottom:1px solid var(--border);cursor:pointer;}
 .ri-item:last-child{border-bottom:none;}
 .ri-item:hover{background:var(--surface2);}
-.ri-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
-.ri-conf{font-size:0.6em;font-weight:600;padding:1px 6px;border-radius:3px;}
+.ri-row{display:flex;align-items:center;gap:5px;margin-bottom:3px;}
+.ri-conf{font-size:0.58em;font-weight:600;padding:1px 5px;border-radius:3px;}
 .conf-HIGH{background:var(--accent-dim);color:var(--accent);}
 .conf-MEDIUM{background:var(--warn-dim);color:var(--warn);}
 .conf-LOW{background:var(--danger-dim);color:var(--danger);}
-.ri-mkt{font-size:0.72em;color:var(--sub);}
-.ri-reasons{display:none;margin-top:8px;flex-direction:column;gap:3px;}
-.ri-reason{font-size:0.65em;color:var(--sub);padding:4px 8px;background:var(--surface2);border-radius:4px;line-height:1.3;}
+.ri-mkt{font-size:0.69em;color:var(--sub);}
+.ri-reasons{display:none;margin-top:7px;flex-direction:column;gap:3px;}
+.ri-reason{font-size:0.63em;color:var(--sub);padding:3px 7px;background:var(--surface2);border-radius:3px;line-height:1.3;}
 
 /* ANOMALY */
-.an-item{padding:10px 16px;border-bottom:1px solid var(--border);}
+.an-item{padding:9px 14px;border-bottom:1px solid var(--border);}
 .an-item:last-child{border-bottom:none;}
-.an-dir{font-size:0.75em;font-weight:500;margin-bottom:3px;color:var(--text);}
-.an-mkt{font-size:0.68em;color:var(--sub);margin-bottom:5px;}
+.an-dir{font-size:0.72em;font-weight:500;margin-bottom:2px;}
+.an-mkt{font-size:0.66em;color:var(--sub);margin-bottom:5px;}
 
 /* CHART */
-.chart-wrap{padding:14px 16px;}
+.chart-wrap{padding:12px 14px;}
 .chart-wrap canvas{max-height:130px;}
 
 /* TOAST */
-.toast{position:fixed;top:65px;right:20px;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:8px;font-size:0.73em;z-index:500;transform:translateX(150%);transition:transform 0.25s;max-width:250px;box-shadow:0 4px 20px #00000033;}
+.toast{position:fixed;top:60px;right:16px;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:9px 13px;border-radius:8px;font-size:0.7em;z-index:500;transform:translateX(150%);transition:transform 0.2s;max-width:240px;box-shadow:0 4px 16px #00000033;}
 .toast.show{transform:translateX(0);}
 
-.empty{padding:20px;text-align:center;font-size:0.75em;color:var(--muted);}
+.empty{padding:18px;text-align:center;font-size:0.72em;color:var(--sub);}
 
+/* MOBILE */
 @media(max-width:768px){
-  .sidebar{transform:translateX(-100%);}
+  .sidebar{transform:translateX(-100%);transition:transform 0.25s;}
+  .sidebar.open{transform:translateX(0);}
   .main{margin-left:0;}
+  .hamburger{display:block;}
   .stats-row{grid-template-columns:repeat(2,1fr);}
   .grid-2{grid-template-columns:1fr;}
   .right-panel{display:none;}
+  .pitch{flex-direction:column;}
+  .pitch-right{text-align:left;}
 }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 </head>
 <body>
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 <div class="toast" id="toast"></div>
-<div class="layout">
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
+<div class="layout">
+<aside class="sidebar" id="sidebar">
   <div class="logo">
     <div class="logo-name">🏛️ InsightAgent</div>
     <div class="logo-sub">Polymarket Intelligence</div>
     <div class="live-pill"><div class="live-dot"></div>LIVE</div>
   </div>
-
   <div class="nav-label">Main</div>
-  <div class="nav-item active">
-    <span class="nav-icon">▦</span> Dashboard
-  </div>
-  <div class="nav-item">
-    <span class="nav-icon">◎</span> Markets
-    <span class="nav-badge">{{ markets|length }}</span>
-  </div>
-  <div class="nav-item">
-    <span class="nav-icon">↕</span> Activity
-    <span class="nav-badge">{{ transactions|length }}</span>
-  </div>
-  <div class="nav-item">
-    <span class="nav-icon">◈</span> AI Reasoning
-    <span class="nav-badge">{{ reasoning_log|length }}</span>
-  </div>
-
+  <div class="nav-item active"><span class="nav-icon">▦</span>Dashboard</div>
+  <div class="nav-item"><span class="nav-icon">◎</span>Markets<span class="nav-badge">{{ markets|length }}</span></div>
+  <div class="nav-item"><span class="nav-icon">↕</span>Activity<span class="nav-badge">{{ transactions|length }}</span></div>
+  <div class="nav-item"><span class="nav-icon">◈</span>AI Reasoning<span class="nav-badge">{{ reasoning_log|length }}</span></div>
   <div class="nav-label">Categories</div>
   {% for cat, items in categories.items() %}
-  <div class="nav-item" onclick="filterByCat('{{ cat }}')">
+  <div class="nav-item" onclick="filterByCat('{{ cat }}');closeSidebar();">
     <span class="nav-icon">{{ items[0].cat_emoji if items else '○' }}</span>
-    {{ cat|capitalize }}
-    <span class="nav-badge">{{ items|length }}</span>
+    {{ cat|capitalize }}<span class="nav-badge">{{ items|length }}</span>
   </div>
   {% endfor %}
-
   <div class="sidebar-bottom">
-    <div class="sb-stat"><span class="sb-lbl">Bets</span><span class="sb-val">{{ stats.total_bets }}</span></div>
-    <div class="sb-stat"><span class="sb-lbl">P&L</span><span class="sb-val {% if stats.pnl >= 0 %}stat-up{% else %}stat-dn{% endif %}">${{ stats.pnl }}</span></div>
-    <div class="sb-stat"><span class="sb-lbl">Chain</span><span class="sb-val" style="font-size:0.75em;">ARC</span></div>
+    <div class="sb-stat"><span class="sb-lbl">Total Bets</span><span class="sb-val">{{ stats.total_bets }}</span></div>
+    <div class="sb-stat"><span class="sb-lbl">P&L</span><span class="sb-val {% if stats.pnl >= 0 %}sup{% else %}sdn{% endif %}">${{ stats.pnl }}</span></div>
+    <div class="sb-stat"><span class="sb-lbl">Chain</span><span class="sb-val" style="font-size:0.75em;color:var(--sub);">ARC-TESTNET</span></div>
   </div>
 </aside>
 
-<!-- MAIN -->
 <div class="main">
 <div class="topbar">
-  <div>
-    <div class="page-title">Dashboard</div>
-    <div class="page-sub">{{ timestamp }}</div>
+  <div class="topbar-left">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div>
+      <div class="page-title">Dashboard</div>
+      <div class="page-sub">{{ timestamp }}</div>
+    </div>
   </div>
   <div class="topbar-right">
     <div class="theme-toggle">
-      <button class="theme-btn" onclick="setTheme('light')">☀</button>
-      <button class="theme-btn active" onclick="setTheme('dark')">◑</button>
-      <button class="theme-btn" onclick="setTheme('auto')">⊙</button>
+      <button class="theme-btn" onclick="setTheme('light',this)">☀</button>
+      <button class="theme-btn active" onclick="setTheme('dark',this)">◑</button>
+      <button class="theme-btn" onclick="setTheme('auto',this)">⊙</button>
     </div>
-    <div id="walletInfo" style="font-size:0.68em;color:var(--sub);font-family:'JetBrains Mono',monospace;"></div>
+    <div id="walletInfo" style="font-size:0.65em;color:var(--sub);font-family:'JetBrains Mono',monospace;"></div>
     <button class="wallet-btn" id="connectBtn" onclick="connectWallet()">🦊 Connect</button>
     <div class="avatar" id="userAvatar" style="display:none;"></div>
   </div>
@@ -281,12 +279,33 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 
 <div class="content">
 
+<!-- PITCH -->
+<div class="pitch">
+  <div class="pitch-left">
+    <h2>AI-Powered Prediction Market Intelligence</h2>
+    <p>InsightAgent autonomously monitors Polymarket markets, analyzes real-time news sentiment, detects price anomalies, and places +EV bets — all settled on Arc Testnet with Circle Developer-Controlled Wallets and gas-free transactions via Paymaster.</p>
+    <div class="pitch-tags">
+      <span class="ptag">Circle Wallets SDK</span>
+      <span class="ptag">Arc Testnet</span>
+      <span class="ptag">USDC Settlement</span>
+      <span class="ptag">Gas Sponsored</span>
+      <span class="ptag">Kelly Criterion</span>
+      <span class="ptag">News Sentiment</span>
+      <span class="ptag">Anomaly Detection</span>
+    </div>
+  </div>
+  <div class="pitch-right">
+    <div class="big">${{ stats.pnl }}</div>
+    <div class="small">Est. P&L · {{ stats.total_bets }} autonomous bets</div>
+  </div>
+</div>
+
 <!-- STATS -->
 <div class="stats-row">
   <div class="stat-card">
     <div class="stat-label">Total Bets</div>
     <div class="stat-value">{{ stats.total_bets }}</div>
-    <div class="stat-meta stat-up">↑ Active agent</div>
+    <div class="stat-meta sup">↑ Autonomous agent</div>
   </div>
   <div class="stat-card">
     <div class="stat-label">USDC Deployed</div>
@@ -296,25 +315,21 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
   <div class="stat-card">
     <div class="stat-label">Est. P&L</div>
     <div class="stat-value">${{ stats.pnl }}</div>
-    <div class="stat-meta {% if stats.pnl >= 0 %}stat-up{% else %}stat-dn{% endif %}">{% if stats.pnl >= 0 %}Profitable{% else %}Loss{% endif %}</div>
+    <div class="stat-meta {% if stats.pnl >= 0 %}sup{% else %}sdn{% endif %}">{% if stats.pnl >= 0 %}Profitable{% else %}Loss{% endif %}</div>
   </div>
   <div class="stat-card">
-    <div class="stat-label">Markets</div>
+    <div class="stat-label">Markets Live</div>
     <div class="stat-value">{{ markets|length }}</div>
-    <div class="stat-meta">Polymarket live</div>
+    <div class="stat-meta">Polymarket</div>
   </div>
 </div>
 
 <div class="grid-2">
 <div>
 
-  <!-- ANOMALIES -->
   {% if anomalies %}
   <div class="sbox" style="border-color:var(--danger-dim);">
-    <div class="sbox-head">
-      <span class="sbox-title">Anomaly Alerts</span>
-      <span class="sbox-meta">{{ anomalies|length }} detected</span>
-    </div>
+    <div class="sbox-head"><span class="sbox-title">Anomaly Alerts</span><span class="sbox-meta">{{ anomalies|length }} detected</span></div>
     {% for a in anomalies %}
     <div class="an-item">
       <div class="an-dir">{{ a.direction }} · {{ a.change }}% move</div>
@@ -328,23 +343,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
   </div>
   {% endif %}
 
-  <!-- CHART -->
   {% if transactions %}
   <div class="sbox">
-    <div class="sbox-head">
-      <span class="sbox-title">Cumulative P&L</span>
-      <span class="sbox-meta">{{ transactions|length }} trades</span>
-    </div>
+    <div class="sbox-head"><span class="sbox-title">Cumulative P&L</span><span class="sbox-meta">{{ transactions|length }} trades</span></div>
     <div class="chart-wrap"><canvas id="pnlChart"></canvas></div>
   </div>
   {% endif %}
 
-  <!-- MARKETS -->
   <div class="sbox">
-    <div class="sbox-head">
-      <span class="sbox-title">Markets</span>
-      <span class="sbox-meta" id="mCount">{{ markets|length }} found</span>
-    </div>
+    <div class="sbox-head"><span class="sbox-title">Markets</span><span class="sbox-meta" id="mCount">{{ markets|length }} found</span></div>
     <div class="cat-tabs">
       <div class="cat-tab active" onclick="filterMarket('all',this)">All</div>
       {% for cat in categories.keys() %}
@@ -371,20 +378,16 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
         </div>
         <div class="mi-detail">
           {% if m.news.headlines %}{% for h in m.news.headlines %}<div class="hl">{{ h }}</div>{% endfor %}
-          {% else %}<div class="hl">No recent news found</div>{% endif %}
+          {% else %}<div class="hl">No recent news</div>{% endif %}
         </div>
       </div>
       {% endfor %}
     </div>
   </div>
 
-  <!-- REASONING -->
   {% if reasoning_log %}
   <div class="sbox">
-    <div class="sbox-head">
-      <span class="sbox-title">AI Reasoning Log</span>
-      <span class="sbox-meta">{{ reasoning_log|length }} entries</span>
-    </div>
+    <div class="sbox-head"><span class="sbox-title">AI Reasoning Log</span><span class="sbox-meta">{{ reasoning_log|length }} entries</span></div>
     {% for r in reasoning_log %}
     <div class="ri-item" onclick="toggleRi(this)">
       <div class="ri-row">
@@ -403,25 +406,19 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 
 </div>
 
-<!-- RIGHT -->
 <div class="right-panel">
 
-  <!-- PROFILE -->
   <div class="sbox">
     <div id="profileContent">
       <div class="profile-empty">
-        <p>Connect your wallet to view profile and personal stats</p>
+        <p>Connect your wallet to view your profile and personal stats</p>
         <button class="conn-btn" onclick="connectWallet()">🦊 Connect Wallet</button>
       </div>
     </div>
   </div>
 
-  <!-- WALLETS -->
   <div class="sbox">
-    <div class="sbox-head">
-      <span class="sbox-title">Agent Wallets</span>
-      <span class="sbox-meta">Arc Testnet</span>
-    </div>
+    <div class="sbox-head"><span class="sbox-title">Agent Wallets</span><span class="sbox-meta">Arc Testnet</span></div>
     {% for w in wallets %}
     <div class="wc-item">
       <div class="wc-addr">{{ w.address[:10] }}...{{ w.address[-6:] }}</div>
@@ -430,28 +427,20 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
     </div>
     {% endfor %}
     <div class="wc-item" id="extWallet">
-      <div style="font-size:0.68em;color:var(--sub);">External wallet not connected</div>
+      <div style="font-size:0.66em;color:var(--sub);">External wallet not connected</div>
     </div>
   </div>
 
-  <!-- BET ENGINE -->
   <div class="sbox">
-    <div class="sbox-head">
-      <span class="sbox-title">Auto Bet Engine</span>
-      <span class="sbox-meta">Gas sponsored</span>
-    </div>
+    <div class="sbox-head"><span class="sbox-title">Auto Bet Engine</span><span class="sbox-meta">Gas sponsored · Paymaster</span></div>
     <div class="bet-body">
       <button class="bet-btn" id="betBtn" onclick="placeBet()">Place Bet (1 USDC)</button>
-      <div class="bet-status" id="betStatus">Cron active · every 30 min</div>
+      <div class="bet-status" id="betStatus">Cron active · runs every 30 min</div>
     </div>
   </div>
 
-  <!-- ACTIVITY -->
   <div class="sbox">
-    <div class="sbox-head">
-      <span class="sbox-title">Recent Activity</span>
-      <span class="sbox-meta">{{ transactions|length }} total</span>
-    </div>
+    <div class="sbox-head"><span class="sbox-title">Recent Activity</span><span class="sbox-meta">{{ transactions|length }} total</span></div>
     {% if transactions %}
     {% for tx in transactions[:8] %}
     <div class="tx-item">
@@ -462,7 +451,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
       </div>
       <div class="tx-right">
         <div class="tx-amt">${{ tx.amount_usdc }}</div>
-        <div class="tx-ret">→ ${{ tx.potential_return }}</div>
+        <div class="tx-ret">→${{ tx.potential_return }}</div>
       </div>
     </div>
     {% endfor %}
@@ -474,127 +463,112 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 </div>
 </div>
 </div>
+</div>
 
 <script>
-// THEME
-function setTheme(t) {
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+function setTheme(t, btn) {
   document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  if (t === 'auto') {
-    const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-  } else {
-    document.documentElement.setAttribute('data-theme', t);
-  }
+  btn.classList.add('active');
+  const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', t === 'auto' ? (dark ? 'dark' : 'light') : t);
   localStorage.setItem('theme', t);
 }
 
-// Auto theme on load
 (function(){
-  const saved = localStorage.getItem('theme') || 'auto';
+  const s = localStorage.getItem('theme') || 'auto';
   const btns = document.querySelectorAll('.theme-btn');
-  if (saved === 'light') { btns[0].classList.add('active'); btns[1].classList.remove('active'); document.documentElement.setAttribute('data-theme','light'); }
-  else if (saved === 'dark') { btns[1].classList.add('active'); document.documentElement.setAttribute('data-theme','dark'); }
-  else {
-    btns[2].classList.add('active'); btns[1].classList.remove('active');
-    const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-      if (localStorage.getItem('theme') === 'auto') document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+  btns.forEach(b => b.classList.remove('active'));
+  if(s==='light'){btns[0].classList.add('active');document.documentElement.setAttribute('data-theme','light');}
+  else if(s==='dark'){btns[1].classList.add('active');document.documentElement.setAttribute('data-theme','dark');}
+  else{
+    btns[2].classList.add('active');
+    const dark=window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',e=>{
+      if(localStorage.getItem('theme')==='auto') document.documentElement.setAttribute('data-theme',e.matches?'dark':'light');
     });
   }
 })();
 
-function toast(msg, type='ok') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.style.borderColor = type === 'ok' ? 'var(--accent)' : 'var(--danger)';
-  t.className = 'toast show';
-  setTimeout(() => t.className = 'toast', 3000);
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast show';
+  setTimeout(()=>t.className='toast',3000);
 }
+function toggleMi(el){el.querySelector('.mi-detail').classList.toggle('open');}
+function toggleRi(el){const r=el.querySelector('.ri-reasons');r.style.display=r.style.display==='flex'?'none':'flex';}
 
-function toggleMi(el) {
-  el.querySelector('.mi-detail').classList.toggle('open');
-}
-
-function toggleRi(el) {
-  const r = el.querySelector('.ri-reasons');
-  r.style.display = r.style.display === 'flex' ? 'none' : 'flex';
-}
-
-function filterMarket(cat, btn) {
-  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+function filterMarket(cat,btn){
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  let count = 0;
-  document.querySelectorAll('.mi').forEach(el => {
-    const show = cat === 'all' || el.dataset.cat === cat;
-    el.style.display = show ? '' : 'none';
-    if (show) count++;
+  let n=0;
+  document.querySelectorAll('.mi').forEach(el=>{
+    const show=cat==='all'||el.dataset.cat===cat;
+    el.style.display=show?'':'none';
+    if(show)n++;
   });
-  document.getElementById('mCount').textContent = count + ' found';
+  document.getElementById('mCount').textContent=n+' found';
+}
+function filterByCat(cat){
+  const tab=[...document.querySelectorAll('.cat-tab')].find(t=>t.textContent.toLowerCase().includes(cat));
+  if(tab)filterMarket(cat,tab);
 }
 
-function filterByCat(cat) {
-  const tab = [...document.querySelectorAll('.cat-tab')].find(t => t.textContent.toLowerCase().includes(cat));
-  if (tab) filterMarket(cat, tab);
-}
-
-async function placeBet() {
-  const btn = document.getElementById('betBtn');
-  const status = document.getElementById('betStatus');
-  btn.disabled = true;
-  btn.textContent = 'Analyzing...';
-  try {
-    const res = await fetch('/api/bet', {method:'POST'});
-    const data = await res.json();
-    if (data.success) {
-      const tx = data.tx;
-      status.textContent = `Placed: ${tx.position} @ ${tx.price}% · $${tx.amount_usdc} USDC`;
-      status.className = 'bet-status bet-ok';
-      toast('Bet placed: ' + tx.position + ' @ ' + tx.price + '%');
-      setTimeout(() => location.reload(), 2000);
-    } else {
-      status.textContent = data.error || 'Error';
-      status.className = 'bet-status bet-err';
-      btn.disabled = false;
-      btn.textContent = 'Place Bet (1 USDC)';
+async function placeBet(){
+  const btn=document.getElementById('betBtn');
+  const st=document.getElementById('betStatus');
+  btn.disabled=true;btn.textContent='Analyzing...';
+  try{
+    const res=await fetch('/api/bet',{method:'POST'});
+    const data=await res.json();
+    if(data.success){
+      const tx=data.tx;
+      st.textContent=`Placed: ${tx.position} @ ${tx.price}% · $${tx.amount_usdc} USDC`;
+      st.className='bet-status bet-ok';
+      toast('Bet placed: '+tx.position+' @ '+tx.price+'%');
+      setTimeout(()=>location.reload(),2000);
+    }else{
+      st.textContent=data.error||'Error';st.className='bet-status bet-err';
+      btn.disabled=false;btn.textContent='Place Bet (1 USDC)';
     }
-  } catch(e) {
-    status.textContent = 'Connection error';
-    status.className = 'bet-status bet-err';
-    btn.disabled = false;
-    btn.textContent = 'Place Bet (1 USDC)';
+  }catch(e){
+    st.textContent='Connection error';st.className='bet-status bet-err';
+    btn.disabled=false;btn.textContent='Place Bet (1 USDC)';
   }
 }
 
-let connectedAccount = null;
-async function connectWallet() {
-  const btn = document.getElementById('connectBtn');
-  if (connectedAccount) {
-    connectedAccount = null;
-    btn.textContent = '🦊 Connect';
-    btn.className = 'wallet-btn';
-    document.getElementById('walletInfo').textContent = '';
-    document.getElementById('userAvatar').style.display = 'none';
-    document.getElementById('profileContent').innerHTML = `<div class="profile-empty"><p>Connect your wallet to view profile and personal stats</p><button class="conn-btn" onclick="connectWallet()">🦊 Connect Wallet</button></div>`;
-    document.getElementById('extWallet').innerHTML = '<div style="font-size:0.68em;color:var(--sub);">External wallet not connected</div>';
+let connectedAccount=null;
+async function connectWallet(){
+  const btn=document.getElementById('connectBtn');
+  if(connectedAccount){
+    connectedAccount=null;btn.textContent='🦊 Connect';btn.className='wallet-btn';
+    document.getElementById('walletInfo').textContent='';
+    document.getElementById('userAvatar').style.display='none';
+    document.getElementById('profileContent').innerHTML=`<div class="profile-empty"><p>Connect your wallet to view your profile and personal stats</p><button class="conn-btn" onclick="connectWallet()">🦊 Connect Wallet</button></div>`;
+    document.getElementById('extWallet').innerHTML='<div style="font-size:0.66em;color:var(--sub);">External wallet not connected</div>';
     return;
   }
-  if (!window.ethereum) { toast('MetaMask not found', 'err'); return; }
-  try {
-    btn.textContent = 'Connecting...';
-    const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
-    connectedAccount = accounts[0];
-    const short = connectedAccount.slice(0,6) + '...' + connectedAccount.slice(-4);
-    btn.textContent = short;
-    btn.className = 'wallet-btn connected';
-    document.getElementById('walletInfo').textContent = short;
-    const av = document.getElementById('userAvatar');
-    av.style.display = 'flex';
-    av.textContent = connectedAccount.slice(2,4).toUpperCase();
-    const bal = await window.ethereum.request({method:'eth_getBalance',params:[connectedAccount,'latest']});
-    const ethBal = (parseInt(bal,16)/1e18).toFixed(4);
-    document.getElementById('profileContent').innerHTML = `
+  if(!window.ethereum){toast('MetaMask not found');return;}
+  try{
+    btn.textContent='Connecting...';
+    const accounts=await window.ethereum.request({method:'eth_requestAccounts'});
+    connectedAccount=accounts[0];
+    const short=connectedAccount.slice(0,6)+'...'+connectedAccount.slice(-4);
+    btn.textContent=short;btn.className='wallet-btn connected';
+    document.getElementById('walletInfo').textContent=short;
+    const av=document.getElementById('userAvatar');av.style.display='flex';av.textContent=connectedAccount.slice(2,4).toUpperCase();
+    const bal=await window.ethereum.request({method:'eth_getBalance',params:[connectedAccount,'latest']});
+    const ethBal=(parseInt(bal,16)/1e18).toFixed(4);
+    document.getElementById('profileContent').innerHTML=`
       <div class="profile-head">
         <div class="profile-av">${connectedAccount.slice(2,4).toUpperCase()}</div>
         <div class="profile-name">Connected</div>
@@ -606,21 +580,21 @@ async function connectWallet() {
         <div class="pg-item"><div class="pg-val">${ethBal}</div><div class="pg-lbl">ETH</div></div>
         <div class="pg-item"><div class="pg-val">{{ markets|length }}</div><div class="pg-lbl">Markets</div></div>
       </div>`;
-    document.getElementById('extWallet').innerHTML = `<div class="wc-addr">${connectedAccount}</div><div class="wc-bal">${ethBal} ETH</div><div class="wc-meta">External · MetaMask</div>`;
-    toast('Connected: ' + short);
-    window.ethereum.on('accountsChanged', () => location.reload());
-  } catch(e) { btn.textContent = '🦊 Connect'; toast('Rejected', 'err'); }
+    document.getElementById('extWallet').innerHTML=`<div class="wc-addr">${connectedAccount}</div><div class="wc-bal">${ethBal} ETH</div><div class="wc-meta">External · MetaMask</div>`;
+    toast('Connected: '+short);
+    window.ethereum.on('accountsChanged',()=>location.reload());
+  }catch(e){btn.textContent='🦊 Connect';toast('Rejected');}
 }
 
 {% if transactions %}
-const txData = {{ transactions|tojson }};
-if (txData.length) {
-  const labels = txData.slice().reverse().map((_,i) => '#'+(i+1));
-  let cum = 0;
-  const vals = txData.slice().reverse().map(t => { cum += parseFloat(t.profit||0); return parseFloat(cum.toFixed(2)); });
-  new Chart(document.getElementById('pnlChart').getContext('2d'), {
+const txData={{ transactions|tojson }};
+if(txData.length){
+  const labels=txData.slice().reverse().map((_,i)=>'#'+(i+1));
+  let cum=0;
+  const vals=txData.slice().reverse().map(t=>{cum+=parseFloat(t.profit||0);return parseFloat(cum.toFixed(2));});
+  new Chart(document.getElementById('pnlChart').getContext('2d'),{
     type:'line',
-    data:{labels,datasets:[{data:vals,borderColor:'#00e87a',backgroundColor:'rgba(0,232,122,0.08)',borderWidth:1.5,fill:true,tension:0.4,pointRadius:2,pointBackgroundColor:'#00e87a'}]},
+    data:{labels,datasets:[{data:vals,borderColor:'#00e87a',backgroundColor:'rgba(0,232,122,0.06)',borderWidth:1.5,fill:true,tension:0.4,pointRadius:2,pointBackgroundColor:'#00e87a'}]},
     options:{responsive:true,plugins:{legend:{display:false},tooltip:{backgroundColor:'#0f0f1a',borderColor:'#1e1e30',borderWidth:1,titleColor:'#e8e8f0',bodyColor:'#6b6b80',callbacks:{label:c=>' $'+c.raw}}},scales:{x:{ticks:{color:'#6b6b80',font:{size:9}},grid:{color:'#1e1e30'}},y:{ticks:{color:'#6b6b80',font:{size:9},callback:v=>'$'+v},grid:{color:'#1e1e30'}}}}
   });
 }

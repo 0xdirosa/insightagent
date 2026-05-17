@@ -1,5 +1,22 @@
 [
   {
+    "id": "61D907B3",
+    "timestamp": "2026-05-17 06:00:02",
+    "market": "Will China invades Taiwan before GTA VI?",
+    "market_id": "540843",
+    "position": "YES",
+    "price": 50.5,
+    "amount_usdc": 1.0,
+    "potential_return": 1.98,
+    "profit": 0.98,
+    "kelly_pct": 10,
+    "wallet": "0x0ee2a0...a8b943",
+    "wallet_address": "0x0ee2a024227cd3981e0f6b0923e86ef53ba8b943",
+    "chain": "ARC-TESTNET",
+    "status": "SIMULATED",
+    "type": "POLYMARKET_BET"
+  },
+  {
     "id": "036B2855",
     "timestamp": "2026-05-17 05:30:02",
     "market": "Will the Oklahoma City Thunder win the 2026 NBA Finals?",

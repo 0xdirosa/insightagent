@@ -1,5 +1,26 @@
 [
   {
+    "timestamp": "2026-05-17 06:00:02",
+    "market": "Will China invades Taiwan before GTA VI?",
+    "signal": "HIGH UNCERTAINTY",
+    "position": "YES",
+    "confidence": "MEDIUM",
+    "yes_price": 50.5,
+    "no_price": 49.5,
+    "volume": 1826899.0,
+    "sentiment": "\ud83d\udfe1 NEUTRAL",
+    "kelly": 10,
+    "reasons": [
+      "Good liquidity ($1,826,899 volume)",
+      "Market is near 50/50 (50.5% Yes) \u2014 high uncertainty, potential mispricing",
+      "No recent news found \u2014 price may not reflect latest information",
+      "Kelly Criterion recommends 10% bankroll allocation \u2014 moderate position size",
+      "HIGH UNCERTAINTY signal \u2014 contrarian opportunity if news diverges from price",
+      "Buying YES at 50.5\u00a2 \u2014 implied probability may be undervalued"
+    ],
+    "news_count": 0
+  },
+  {
     "timestamp": "2026-05-17 05:30:02",
     "market": "Will the Oklahoma City Thunder win the 2026 NBA Finals?",
     "signal": "MONITOR",
